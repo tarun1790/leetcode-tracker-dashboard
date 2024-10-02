@@ -1,3 +1,4 @@
 - [2024-10-01T12:16:19+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-10-02T14:23:49+05:30] docs(readme): add local development instructions and API keys setup
 - [2024-10-02T15:42:18+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2024-10-02T20:56:30+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
