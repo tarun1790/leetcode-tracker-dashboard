@@ -3,3 +3,4 @@
 - [2024-10-02T15:42:18+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2024-10-02T20:56:30+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2024-10-04T10:57:53+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2024-10-04T15:42:28+05:30] feat(filter): add topic tags and difficulty filter buttons
