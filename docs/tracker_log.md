@@ -8,3 +8,4 @@
 - [2024-10-04T18:23:34+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-10-06T14:23:27+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-10-07T18:45:04+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2024-10-09T19:41:17+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
