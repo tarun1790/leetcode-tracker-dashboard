@@ -10,3 +10,4 @@
 - [2024-10-07T18:45:04+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2024-10-09T19:41:17+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2024-10-10T18:41:25+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2024-10-11T12:19:45+05:30] style(theme): enhance high-contrast telemetry dashboard styling
