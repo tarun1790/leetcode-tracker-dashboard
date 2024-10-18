@@ -14,3 +14,4 @@
 - [2024-10-15T12:40:48+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2024-10-16T10:04:50+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2024-10-17T13:41:21+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2024-10-18T10:28:27+05:30] feat(filter): add topic tags and difficulty filter buttons
