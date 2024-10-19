@@ -16,3 +16,4 @@
 - [2024-10-17T13:41:21+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-10-18T10:28:27+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2024-10-18T15:37:14+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2024-10-19T10:59:47+05:30] docs(readme): add local development instructions and API keys setup
