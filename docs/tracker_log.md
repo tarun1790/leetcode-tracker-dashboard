@@ -18,3 +18,4 @@
 - [2024-10-18T15:37:14+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2024-10-19T10:59:47+05:30] docs(readme): add local development instructions and API keys setup
 - [2024-10-21T19:06:09+05:30] refactor(api): optimize GraphQL submission query batching
+- [2024-10-22T17:22:39+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
