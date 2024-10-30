@@ -20,3 +20,4 @@
 - [2024-10-21T19:06:09+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-10-22T17:22:39+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2024-10-28T09:14:38+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2024-10-30T20:11:06+05:30] perf(localstorage): optimize cached problem solution state persistence
