@@ -26,3 +26,4 @@
 - [2024-11-05T11:51:02+05:30] docs(readme): add local development instructions and API keys setup
 - [2024-11-06T16:25:34+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2024-11-08T17:15:41+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2024-11-08T17:26:31+05:30] feat(stats): add daily problem streak tracking and heat map widget
