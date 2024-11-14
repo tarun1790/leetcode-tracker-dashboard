@@ -31,3 +31,4 @@
 - [2024-11-10T20:01:16+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-11-12T13:24:20+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2024-11-12T17:49:10+05:30] refactor(api): optimize GraphQL submission query batching
+- [2024-11-14T15:20:33+05:30] docs(changelog): document release notes for dashboard metrics v2.1
