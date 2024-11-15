@@ -33,3 +33,4 @@
 - [2024-11-12T17:49:10+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-11-14T15:20:33+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2024-11-15T14:26:34+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2024-11-15T14:39:29+05:30] docs(changelog): document release notes for dashboard metrics v2.1
