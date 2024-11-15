@@ -34,3 +34,4 @@
 - [2024-11-14T15:20:33+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2024-11-15T14:26:34+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2024-11-15T14:39:29+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2024-11-15T16:28:46+05:30] feat(stats): add daily problem streak tracking and heat map widget
