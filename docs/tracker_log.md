@@ -36,3 +36,4 @@
 - [2024-11-15T14:39:29+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2024-11-15T16:28:46+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-11-15T17:19:23+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2024-11-15T18:47:44+05:30] feat(filter): add topic tags and difficulty filter buttons
