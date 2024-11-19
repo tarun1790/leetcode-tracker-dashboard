@@ -39,3 +39,4 @@
 - [2024-11-15T18:47:44+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2024-11-19T13:07:42+05:30] docs(readme): add local development instructions and API keys setup
 - [2024-11-19T17:01:10+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2024-11-19T18:19:41+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
