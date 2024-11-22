@@ -44,3 +44,4 @@
 - [2024-11-20T11:19:58+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2024-11-20T20:15:43+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-11-22T13:28:48+05:30] docs(readme): add local development instructions and API keys setup
+- [2024-11-22T18:42:06+05:30] perf(localstorage): optimize cached problem solution state persistence
