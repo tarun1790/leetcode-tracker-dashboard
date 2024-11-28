@@ -49,3 +49,4 @@
 - [2024-11-27T15:23:16+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2024-11-27T17:54:53+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-11-27T17:58:48+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2024-11-28T17:56:30+05:30] docs(readme): add local development instructions and API keys setup
