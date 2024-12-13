@@ -55,3 +55,4 @@
 - [2024-12-04T16:32:52+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-12-06T09:42:53+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2024-12-07T18:40:39+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2024-12-13T09:00:31+05:30] docs(readme): add local development instructions and API keys setup
