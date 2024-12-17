@@ -57,3 +57,4 @@
 - [2024-12-07T18:40:39+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-12-13T09:00:31+05:30] docs(readme): add local development instructions and API keys setup
 - [2024-12-13T14:46:56+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2024-12-17T14:28:03+05:30] feat(stats): add daily problem streak tracking and heat map widget
