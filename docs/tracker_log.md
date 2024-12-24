@@ -60,3 +60,4 @@
 - [2024-12-17T14:28:03+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2024-12-19T17:15:17+05:30] refactor(api): optimize GraphQL submission query batching
 - [2024-12-20T11:25:51+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2024-12-24T21:53:20+05:30] feat(stats): add daily problem streak tracking and heat map widget
