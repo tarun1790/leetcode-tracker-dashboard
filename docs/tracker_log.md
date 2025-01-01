@@ -66,3 +66,4 @@
 - [2024-12-27T21:22:13+05:30] docs(readme): add local development instructions and API keys setup
 - [2024-12-31T15:50:03+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-01-01T09:49:23+05:30] refactor(api): optimize GraphQL submission query batching
+- [2025-01-01T10:26:52+05:30] refactor(api): optimize GraphQL submission query batching
