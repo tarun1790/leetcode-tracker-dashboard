@@ -77,3 +77,4 @@
 - [2025-01-09T10:24:43+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-01-09T14:49:25+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-01-13T15:04:51+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-01-13T17:16:00+05:30] feat(filter): add topic tags and difficulty filter buttons
