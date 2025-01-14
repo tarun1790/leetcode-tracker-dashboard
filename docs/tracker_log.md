@@ -80,3 +80,4 @@
 - [2025-01-13T17:16:00+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-01-13T17:42:05+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-01-13T19:10:46+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2025-01-14T20:15:55+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
