@@ -88,3 +88,4 @@
 - [2025-01-15T20:00:42+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-01-16T19:42:46+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-01-16T21:05:51+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-01-17T13:06:39+05:30] perf(localstorage): optimize cached problem solution state persistence
