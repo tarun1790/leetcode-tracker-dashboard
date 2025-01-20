@@ -92,3 +92,4 @@
 - [2025-01-17T18:31:40+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-01-19T19:25:35+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-01-20T13:42:27+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-01-20T14:28:51+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
