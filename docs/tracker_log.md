@@ -95,3 +95,4 @@
 - [2025-01-20T14:28:51+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-01-20T15:46:28+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-01-21T14:28:30+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2025-01-21T19:39:48+05:30] feat(stats): add daily problem streak tracking and heat map widget
