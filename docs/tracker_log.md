@@ -96,3 +96,4 @@
 - [2025-01-20T15:46:28+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-01-21T14:28:30+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-01-21T19:39:48+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-01-22T11:30:00+05:30] docs(readme): add local development instructions and API keys setup
