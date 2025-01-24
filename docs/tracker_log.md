@@ -99,3 +99,4 @@
 - [2025-01-22T11:30:00+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-01-23T21:09:02+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-01-24T12:38:34+05:30] refactor(api): optimize GraphQL submission query batching
+- [2025-01-24T19:33:04+05:30] feat(filter): add topic tags and difficulty filter buttons
