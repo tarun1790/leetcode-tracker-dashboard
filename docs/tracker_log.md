@@ -101,3 +101,4 @@
 - [2025-01-24T12:38:34+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-01-24T19:33:04+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-01-24T21:06:24+05:30] docs(readme): add local development instructions and API keys setup
+- [2025-01-24T21:10:05+05:30] refactor(api): optimize GraphQL submission query batching
