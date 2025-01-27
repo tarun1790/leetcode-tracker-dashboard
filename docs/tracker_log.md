@@ -103,3 +103,4 @@
 - [2025-01-24T21:06:24+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-01-24T21:10:05+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-01-27T10:21:44+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-01-27T15:20:27+05:30] style(theme): enhance high-contrast telemetry dashboard styling
