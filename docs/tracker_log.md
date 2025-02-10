@@ -115,3 +115,4 @@
 - [2025-02-08T21:11:55+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-02-10T09:51:37+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-02-10T10:04:32+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-02-10T11:39:32+05:30] perf(localstorage): optimize cached problem solution state persistence
