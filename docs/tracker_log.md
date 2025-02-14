@@ -121,3 +121,4 @@
 - [2025-02-13T11:13:02+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-02-13T11:43:09+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-02-13T16:48:17+05:30] docs(readme): add local development instructions and API keys setup
+- [2025-02-14T10:34:24+05:30] feat(stats): add daily problem streak tracking and heat map widget
