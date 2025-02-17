@@ -123,3 +123,4 @@
 - [2025-02-13T16:48:17+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-02-14T10:34:24+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-02-14T14:22:46+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-02-17T14:45:36+05:30] style(theme): enhance high-contrast telemetry dashboard styling
