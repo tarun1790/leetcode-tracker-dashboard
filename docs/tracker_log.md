@@ -133,3 +133,4 @@
 - [2025-02-28T18:12:14+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-03-03T10:48:25+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-03-03T12:30:53+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2025-03-03T17:07:41+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
