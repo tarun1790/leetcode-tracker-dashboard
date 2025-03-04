@@ -134,3 +134,4 @@
 - [2025-03-03T10:48:25+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-03-03T12:30:53+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-03-03T17:07:41+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-03-04T18:49:58+05:30] docs(readme): add local development instructions and API keys setup
