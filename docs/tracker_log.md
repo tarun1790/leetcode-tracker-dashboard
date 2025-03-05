@@ -137,3 +137,4 @@
 - [2025-03-04T18:49:58+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-03-05T10:48:40+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-03-05T14:06:08+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-03-05T19:07:58+05:30] feat(filter): add topic tags and difficulty filter buttons
