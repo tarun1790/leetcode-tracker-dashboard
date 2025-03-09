@@ -142,3 +142,4 @@
 - [2025-03-06T18:05:32+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-03-07T18:26:26+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-03-07T21:36:20+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-03-09T21:16:15+05:30] feat(stats): add daily problem streak tracking and heat map widget
