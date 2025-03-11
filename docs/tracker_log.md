@@ -144,3 +144,4 @@
 - [2025-03-07T21:36:20+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-03-09T21:16:15+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-03-11T18:42:28+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-03-11T19:12:52+05:30] refactor(api): optimize GraphQL submission query batching
