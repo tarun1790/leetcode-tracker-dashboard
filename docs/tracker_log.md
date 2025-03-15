@@ -149,3 +149,4 @@
 - [2025-03-12T18:23:28+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-03-13T12:20:56+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-03-14T10:56:32+05:30] refactor(api): optimize GraphQL submission query batching
+- [2025-03-15T13:43:32+05:30] docs(readme): add local development instructions and API keys setup
