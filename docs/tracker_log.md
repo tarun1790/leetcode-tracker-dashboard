@@ -155,3 +155,4 @@
 - [2025-03-19T18:27:10+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-03-24T09:31:25+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-03-24T13:32:50+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-03-25T10:03:30+05:30] docs(readme): add local development instructions and API keys setup
