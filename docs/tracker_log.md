@@ -157,3 +157,4 @@
 - [2025-03-24T13:32:50+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-03-25T10:03:30+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-03-25T12:56:31+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-03-26T10:22:12+05:30] perf(localstorage): optimize cached problem solution state persistence
