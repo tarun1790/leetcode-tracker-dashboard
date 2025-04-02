@@ -162,3 +162,4 @@
 - [2025-03-28T11:04:57+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-04-01T19:41:31+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-04-01T19:45:47+05:30] refactor(api): optimize GraphQL submission query batching
+- [2025-04-02T17:29:20+05:30] docs(changelog): document release notes for dashboard metrics v2.1
