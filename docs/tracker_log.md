@@ -165,3 +165,4 @@
 - [2025-04-02T17:29:20+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-04-03T14:11:27+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-04-03T19:29:58+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2025-04-03T19:54:18+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
