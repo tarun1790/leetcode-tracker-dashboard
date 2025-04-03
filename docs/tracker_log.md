@@ -164,3 +164,4 @@
 - [2025-04-01T19:45:47+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-04-02T17:29:20+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-04-03T14:11:27+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-04-03T19:29:58+05:30] feat(filter): add topic tags and difficulty filter buttons
