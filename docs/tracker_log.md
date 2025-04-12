@@ -171,3 +171,4 @@
 - [2025-04-10T11:50:36+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-04-10T19:55:24+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-04-10T21:46:45+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-04-12T17:23:54+05:30] feat(stats): add daily problem streak tracking and heat map widget
