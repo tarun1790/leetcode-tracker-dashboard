@@ -172,3 +172,4 @@
 - [2025-04-10T19:55:24+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-04-10T21:46:45+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-04-12T17:23:54+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-04-16T11:12:55+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
