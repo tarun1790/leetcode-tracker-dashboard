@@ -174,3 +174,4 @@
 - [2025-04-12T17:23:54+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-04-16T11:12:55+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-04-16T15:55:18+05:30] refactor(api): optimize GraphQL submission query batching
+- [2025-04-16T16:28:51+05:30] feat(filter): add topic tags and difficulty filter buttons
