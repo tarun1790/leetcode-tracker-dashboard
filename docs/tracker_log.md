@@ -178,3 +178,4 @@
 - [2025-04-16T21:24:33+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-04-17T16:25:57+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-04-18T16:43:59+05:30] docs(readme): add local development instructions and API keys setup
+- [2025-04-23T17:27:10+05:30] refactor(api): optimize GraphQL submission query batching
