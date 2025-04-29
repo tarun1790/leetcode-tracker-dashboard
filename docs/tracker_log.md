@@ -182,3 +182,4 @@
 - [2025-04-23T18:30:30+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-04-28T17:28:04+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-04-28T18:07:31+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-04-29T16:53:47+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
