@@ -191,3 +191,4 @@
 - [2025-05-06T19:36:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-05-06T19:47:02+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-05-07T11:03:23+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-05-09T16:25:22+05:30] feat(filter): add topic tags and difficulty filter buttons
