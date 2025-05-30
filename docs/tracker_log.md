@@ -198,3 +198,4 @@
 - [2025-05-23T18:46:35+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-05-30T09:06:51+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-05-30T15:41:35+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-05-30T20:12:11+05:30] refactor(api): optimize GraphQL submission query batching
