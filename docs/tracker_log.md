@@ -204,3 +204,4 @@
 - [2025-06-04T15:10:55+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-06-04T21:29:30+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-06-05T17:10:49+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-06-06T15:16:47+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
