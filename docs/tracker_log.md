@@ -207,3 +207,4 @@
 - [2025-06-06T15:16:47+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-06-13T20:31:23+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-06-13T21:51:43+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-06-16T12:30:12+05:30] refactor(api): optimize GraphQL submission query batching
