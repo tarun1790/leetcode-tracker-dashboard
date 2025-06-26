@@ -217,3 +217,4 @@
 - [2025-06-25T20:35:36+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-06-26T11:44:19+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-06-26T12:58:27+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-06-26T19:50:26+05:30] feat(stats): add daily problem streak tracking and heat map widget
