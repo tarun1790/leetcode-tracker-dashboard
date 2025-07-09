@@ -225,3 +225,4 @@
 - [2025-07-07T19:26:43+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-07-08T09:25:04+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-07-08T21:36:44+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-07-09T13:09:05+05:30] feat(filter): add topic tags and difficulty filter buttons
