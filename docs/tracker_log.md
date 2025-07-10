@@ -227,3 +227,4 @@
 - [2025-07-08T21:36:44+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-07-09T13:09:05+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-07-09T17:13:24+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-07-10T14:36:35+05:30] docs(readme): add local development instructions and API keys setup
