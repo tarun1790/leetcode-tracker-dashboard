@@ -229,3 +229,4 @@
 - [2025-07-09T17:13:24+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-07-10T14:36:35+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-07-11T09:21:14+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-07-11T12:32:54+05:30] docs(changelog): document release notes for dashboard metrics v2.1
