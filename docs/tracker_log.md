@@ -235,3 +235,4 @@
 - [2025-07-15T12:42:11+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-07-16T17:23:07+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-07-16T21:52:44+05:30] refactor(api): optimize GraphQL submission query batching
+- [2025-07-22T19:25:54+05:30] docs(changelog): document release notes for dashboard metrics v2.1
