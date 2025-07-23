@@ -236,3 +236,4 @@
 - [2025-07-16T17:23:07+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-07-16T21:52:44+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-07-22T19:25:54+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-07-23T19:18:15+05:30] docs(readme): add local development instructions and API keys setup
