@@ -246,3 +246,4 @@
 - [2025-07-30T15:38:19+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-07-30T20:34:31+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-07-31T10:21:23+05:30] docs(readme): add local development instructions and API keys setup
+- [2025-08-01T12:18:36+05:30] feat(filter): add topic tags and difficulty filter buttons
