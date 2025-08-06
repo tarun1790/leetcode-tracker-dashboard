@@ -248,3 +248,4 @@
 - [2025-07-31T10:21:23+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-08-01T12:18:36+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-08-04T16:36:43+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-08-06T16:30:09+05:30] feat(filter): add topic tags and difficulty filter buttons
