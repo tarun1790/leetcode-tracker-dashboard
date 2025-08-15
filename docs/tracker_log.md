@@ -255,3 +255,4 @@
 - [2025-08-08T17:55:13+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-08-08T18:46:49+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-08-13T13:24:41+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-08-15T18:26:36+05:30] feat(filter): add topic tags and difficulty filter buttons
