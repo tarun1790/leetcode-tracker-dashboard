@@ -258,3 +258,4 @@
 - [2025-08-15T18:26:36+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-08-18T10:49:38+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-08-19T10:41:27+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-08-19T17:59:09+05:30] docs(readme): add local development instructions and API keys setup
