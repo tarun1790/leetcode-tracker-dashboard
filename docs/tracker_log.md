@@ -260,3 +260,4 @@
 - [2025-08-19T10:41:27+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-08-19T17:59:09+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-08-20T12:44:15+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-08-22T12:14:47+05:30] docs(readme): add local development instructions and API keys setup
