@@ -263,3 +263,4 @@
 - [2025-08-22T12:14:47+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-08-22T13:53:27+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-08-24T09:31:05+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-08-25T10:35:39+05:30] refactor(api): optimize GraphQL submission query batching
