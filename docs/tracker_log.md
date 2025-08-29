@@ -268,3 +268,4 @@
 - [2025-08-26T19:59:52+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-08-27T17:05:49+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-08-27T17:59:59+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-08-29T12:16:31+05:30] docs(readme): add local development instructions and API keys setup
