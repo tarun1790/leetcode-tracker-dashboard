@@ -274,3 +274,4 @@
 - [2025-09-03T19:55:25+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-09-05T09:48:08+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-05T10:59:07+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-09-05T11:31:33+05:30] style(theme): enhance high-contrast telemetry dashboard styling
