@@ -275,3 +275,4 @@
 - [2025-09-05T09:48:08+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-05T10:59:07+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-05T11:31:33+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-09-05T13:40:55+05:30] feat(stats): add daily problem streak tracking and heat map widget
