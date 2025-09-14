@@ -279,3 +279,4 @@
 - [2025-09-09T16:06:56+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-09-10T14:43:35+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-09-10T17:48:10+05:30] feat(stats): add daily problem streak tracking and heat map widget
+- [2025-09-14T14:16:12+05:30] refactor(api): optimize GraphQL submission query batching
