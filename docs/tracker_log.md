@@ -282,3 +282,4 @@
 - [2025-09-14T14:16:12+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-09-15T14:31:05+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-09-15T18:08:03+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-09-16T12:41:11+05:30] feat(stats): add daily problem streak tracking and heat map widget
