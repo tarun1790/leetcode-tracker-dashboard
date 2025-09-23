@@ -289,3 +289,4 @@
 - [2025-09-19T13:09:04+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-09-19T16:59:53+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-22T10:17:03+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2025-09-23T18:26:47+05:30] docs(changelog): document release notes for dashboard metrics v2.1
