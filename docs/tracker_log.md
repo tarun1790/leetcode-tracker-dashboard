@@ -294,3 +294,4 @@
 - [2025-09-24T09:18:00+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-24T10:43:27+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-09-24T15:16:57+05:30] docs(readme): add local development instructions and API keys setup
+- [2025-09-24T18:45:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
