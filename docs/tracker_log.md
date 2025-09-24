@@ -292,3 +292,4 @@
 - [2025-09-23T18:26:47+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-23T21:34:04+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-09-24T09:18:00+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-09-24T10:43:27+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
