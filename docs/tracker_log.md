@@ -296,3 +296,4 @@
 - [2025-09-24T15:16:57+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-09-24T18:45:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-09-24T20:34:20+05:30] docs(readme): add local development instructions and API keys setup
+- [2025-09-25T12:12:41+05:30] refactor(api): optimize GraphQL submission query batching
