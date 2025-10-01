@@ -301,3 +301,4 @@
 - [2025-09-29T10:17:15+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-09-30T09:08:30+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-09-30T20:36:33+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-10-01T21:22:06+05:30] refactor(api): optimize GraphQL submission query batching
