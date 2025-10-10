@@ -310,3 +310,4 @@
 - [2025-10-09T09:44:23+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-10-09T09:48:51+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-10-10T10:41:19+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2025-10-10T16:12:49+05:30] feat(filter): add topic tags and difficulty filter buttons
