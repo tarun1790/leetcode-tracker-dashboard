@@ -321,3 +321,4 @@
 - [2025-10-16T20:34:18+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-10-20T09:23:19+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-10-21T19:09:13+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-10-22T19:07:35+05:30] docs(readme): add local development instructions and API keys setup
