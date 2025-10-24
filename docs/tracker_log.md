@@ -323,3 +323,4 @@
 - [2025-10-21T19:09:13+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-10-22T19:07:35+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-10-23T16:50:45+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-10-24T09:02:47+05:30] feat(filter): add topic tags and difficulty filter buttons
