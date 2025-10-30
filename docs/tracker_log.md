@@ -331,3 +331,4 @@
 - [2025-10-29T09:54:47+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-10-29T11:51:09+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-10-29T17:59:55+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-10-30T17:29:06+05:30] feat(filter): add topic tags and difficulty filter buttons
