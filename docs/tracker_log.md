@@ -339,3 +339,4 @@
 - [2025-11-05T19:59:38+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-11-07T17:57:45+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-11-09T18:01:19+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2025-11-10T11:06:46+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
