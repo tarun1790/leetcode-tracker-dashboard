@@ -341,3 +341,4 @@
 - [2025-11-09T18:01:19+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-11-10T11:06:46+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-11-14T12:11:51+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2025-11-18T13:47:54+05:30] refactor(api): optimize GraphQL submission query batching
