@@ -345,3 +345,4 @@
 - [2025-11-19T16:51:25+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-11-19T19:43:58+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-11-20T12:13:11+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2025-11-20T16:50:23+05:30] refactor(api): optimize GraphQL submission query batching
