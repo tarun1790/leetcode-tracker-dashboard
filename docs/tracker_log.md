@@ -347,3 +347,4 @@
 - [2025-11-20T12:13:11+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-11-20T16:50:23+05:30] refactor(api): optimize GraphQL submission query batching
 - [2025-11-20T18:20:06+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-11-20T20:32:21+05:30] docs(readme): add local development instructions and API keys setup
