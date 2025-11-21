@@ -351,3 +351,4 @@
 - [2025-11-21T12:27:32+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-11-21T15:27:59+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-11-21T20:29:28+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-11-21T20:55:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
