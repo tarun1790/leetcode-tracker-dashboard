@@ -349,3 +349,4 @@
 - [2025-11-20T18:20:06+05:30] style(theme): enhance high-contrast telemetry dashboard styling
 - [2025-11-20T20:32:21+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-11-21T12:27:32+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-11-21T15:27:59+05:30] perf(localstorage): optimize cached problem solution state persistence
