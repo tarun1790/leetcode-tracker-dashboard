@@ -353,3 +353,4 @@
 - [2025-11-21T20:29:28+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-11-21T20:55:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-11-24T09:32:49+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-11-24T11:18:40+05:30] feat(filter): add topic tags and difficulty filter buttons
