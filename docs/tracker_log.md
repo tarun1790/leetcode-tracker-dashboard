@@ -356,3 +356,4 @@
 - [2025-11-24T11:18:40+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-11-24T15:17:47+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-11-24T16:58:35+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-11-24T20:05:56+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
