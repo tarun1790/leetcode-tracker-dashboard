@@ -358,3 +358,4 @@
 - [2025-11-24T16:58:35+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-11-24T20:05:56+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-11-25T14:18:44+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-11-25T14:21:39+05:30] perf(localstorage): optimize cached problem solution state persistence
