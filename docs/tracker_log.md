@@ -364,3 +364,4 @@
 - [2025-11-26T14:41:32+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-11-28T10:10:10+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-11-28T10:26:58+05:30] feat(filter): add topic tags and difficulty filter buttons
+- [2025-12-03T09:38:13+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
