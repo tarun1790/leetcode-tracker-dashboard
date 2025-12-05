@@ -366,3 +366,4 @@
 - [2025-11-28T10:26:58+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-12-03T09:38:13+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-12-04T16:18:45+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-12-05T15:10:21+05:30] docs(readme): add local development instructions and API keys setup
