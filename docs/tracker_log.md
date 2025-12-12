@@ -373,3 +373,4 @@
 - [2025-12-12T10:54:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-12-12T13:36:15+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-12-12T17:16:42+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
+- [2025-12-12T21:50:03+05:30] feat(filter): add topic tags and difficulty filter buttons
