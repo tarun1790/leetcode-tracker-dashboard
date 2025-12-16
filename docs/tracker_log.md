@@ -379,3 +379,4 @@
 - [2025-12-15T21:25:05+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-12-15T21:45:05+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-12-16T11:29:29+05:30] style(theme): enhance high-contrast telemetry dashboard styling
+- [2025-12-16T17:06:41+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
