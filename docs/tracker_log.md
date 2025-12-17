@@ -382,3 +382,4 @@
 - [2025-12-16T17:06:41+05:30] fix(charts): fix tooltip hover alignment on solved problem progress bar
 - [2025-12-16T19:02:10+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-12-17T20:57:42+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2025-12-17T21:59:20+05:30] docs(readme): add local development instructions and API keys setup
