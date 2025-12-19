@@ -384,3 +384,4 @@
 - [2025-12-17T20:57:42+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-12-17T21:59:20+05:30] docs(readme): add local development instructions and API keys setup
 - [2025-12-19T09:49:05+05:30] perf(localstorage): optimize cached problem solution state persistence
+- [2025-12-19T11:48:36+05:30] feat(filter): add topic tags and difficulty filter buttons
