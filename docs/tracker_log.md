@@ -386,3 +386,4 @@
 - [2025-12-19T09:49:05+05:30] perf(localstorage): optimize cached problem solution state persistence
 - [2025-12-19T11:48:36+05:30] feat(filter): add topic tags and difficulty filter buttons
 - [2025-12-19T15:21:47+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-12-19T20:39:42+05:30] docs(changelog): document release notes for dashboard metrics v2.1
