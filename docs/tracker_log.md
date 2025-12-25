@@ -395,3 +395,4 @@
 - [2025-12-24T20:22:42+05:30] feat(stats): add daily problem streak tracking and heat map widget
 - [2025-12-25T11:50:57+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-12-25T13:47:48+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-12-25T15:04:39+05:30] docs(changelog): document release notes for dashboard metrics v2.1
