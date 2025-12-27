@@ -396,3 +396,4 @@
 - [2025-12-25T11:50:57+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-12-25T13:47:48+05:30] docs(changelog): document release notes for dashboard metrics v2.1
 - [2025-12-25T15:04:39+05:30] docs(changelog): document release notes for dashboard metrics v2.1
+- [2025-12-27T14:18:42+05:30] style(theme): enhance high-contrast telemetry dashboard styling
