@@ -318,6 +318,8 @@ body {
 }
 
 .solved-column {
+  position: relative;
+  z-index: 5;
   background: #090d16;
   border: 1px solid var(--card-border);
   border-radius: 1.25rem;
@@ -365,6 +367,8 @@ body {
 }
 
 .solved-problem-card {
+  position: relative;
+  z-index: 6;
   background: #121826;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.75rem;

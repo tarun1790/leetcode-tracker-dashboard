@@ -162,7 +162,7 @@ export default function InteractiveGridBackground() {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 0,
+        zIndex: -1,
         pointerEvents: 'none',
         opacity: 0.75
       }}
