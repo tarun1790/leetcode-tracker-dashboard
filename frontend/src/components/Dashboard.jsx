@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flame, Award, Clock, Zap, Plus, ExternalLink, HelpCircle } from 'lucide-react';
 
-export default function Dashboard({ stats, onAddProblemClick, onAddContestClick, setActiveTab, onSyncLeetcode }) {
+export default function Dashboard({ stats, problems = [], onAddProblemClick, onAddContestClick, setActiveTab, onSyncLeetcode }) {
   const {
     totalSolved = 0,
     easyCount = 0,
@@ -15,9 +15,13 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
     currentRating = 1500,
     peakRating = 1500,
     contributionMap = {},
-    recentProblems = [],
     leetcodeProfile = null
   } = stats;
+
+  // Filter problems for the three columns
+  const easyProblems = problems.filter(p => p.difficulty === 'Easy');
+  const mediumProblems = problems.filter(p => p.difficulty === 'Medium');
+  const hardProblems = problems.filter(p => p.difficulty === 'Hard');
 
   // Generate 53 weeks * 7 days of heatmap squares ending today
   const getHeatmapDays = () => {
@@ -37,7 +41,6 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
       const currentDate = new Date(startDay);
       currentDate.setDate(startDay.getDate() + i);
       
-      // format YYYY-MM-DD in local time
       const year = currentDate.getFullYear();
       const month = String(currentDate.getMonth() + 1).padStart(2, '0');
       const day = String(currentDate.getDate()).padStart(2, '0');
@@ -69,47 +72,15 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
 
   return (
     <div className="dashboard-container">
-      {/* Upper Grid: Streak and Quick Stats */}
       <div className="dashboard-grid">
         
-        {/* Streak Card */}
-        <div className="card streak-card col-4">
-          <div className="flex-between" style={{ marginBottom: '1rem' }}>
-            <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Daily Streak</span>
-            <div className="stat-icon">
-              <span className="streak-flame">🔥</span>
-            </div>
-          </div>
-          <div>
-            <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--text-primary)', display: 'inline-block' }}>
-              {currentStreak}
-            </h1>
-            <span style={{ marginLeft: '0.5rem', fontSize: '1.1rem', fontWeight: 600, color: 'var(--fire-orange)' }}>
-              days
-            </span>
-          </div>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-            {solvedToday ? "Solved today! Keep it up!" : "Solve a problem today to continue your streak!"}
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1.25rem', borderTop: '1px solid rgba(255,90,31,0.15)', paddingTop: '1rem' }}>
-            <div>
-              <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>LONGEST STREAK</span>
-              <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>{longestStreak} days</span>
-            </div>
-            <div>
-              <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>STATUS</span>
-              <span style={{ fontSize: '1.1rem', fontWeight: 700, color: solvedToday ? 'var(--color-easy)' : 'var(--color-medium)' }}>
-                {solvedToday ? 'Active' : 'Awaiting Solve'}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Stats Grid */}
-        <div className="col-8" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {/* LEFT COLUMN: Stats, Heatmap, 3-Columns (Span 8) */}
+        <div className="col-8" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          
+          {/* Quick Stats Grid */}
           <div className="stats-grid" style={{ margin: 0 }}>
             {/* Total Solved */}
-            <div className="card stat-card" style={{ padding: '1.25rem' }}>
+            <div className="card stat-card card-easy">
               <div className="stat-icon" style={{ background: 'rgba(99, 102, 241, 0.1)', color: 'var(--color-primary)' }}>
                 <Award size={20} />
               </div>
@@ -120,7 +91,7 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
             </div>
 
             {/* Average Beats */}
-            <div className="card stat-card" style={{ padding: '1.25rem' }}>
+            <div className="card stat-card card-easy">
               <div className="stat-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-easy)' }}>
                 <Zap size={20} />
               </div>
@@ -131,7 +102,7 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
             </div>
 
             {/* Avg Time */}
-            <div className="card stat-card" style={{ padding: '1.25rem' }}>
+            <div className="card stat-card card-medium">
               <div className="stat-icon" style={{ background: 'rgba(245, 158, 11, 0.1)', color: 'var(--color-medium)' }}>
                 <Clock size={20} />
               </div>
@@ -142,7 +113,7 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
             </div>
 
             {/* Contest Rating */}
-            <div className="card stat-card" style={{ padding: '1.25rem' }}>
+            <div className="card stat-card card-hard">
               <div className="stat-icon" style={{ background: 'rgba(168, 85, 247, 0.1)', color: 'var(--color-secondary)' }}>
                 <TrophyIcon size={20} />
               </div>
@@ -154,8 +125,8 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
           </div>
 
           {/* Difficulty Progress Overview Card */}
-          <div className="card" style={{ flex: 1, padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.75rem', letterSpacing: '0.3px' }}>
+          <div className="card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.75rem', letterSpacing: '0.3px' }}>
               DIFFICULTY DISTRIBUTION
             </h4>
             <div style={{ display: 'flex', height: '14px', borderRadius: '7px', overflow: 'hidden', marginBottom: '1rem', border: '1px solid rgba(255,255,255,0.03)' }}>
@@ -181,122 +152,199 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
               </span>
             </div>
           </div>
-        </div>
 
-      </div>
-
-      {/* Contribution Calendar Heatmap */}
-      <div className="card" style={{ marginTop: '1.5rem', padding: '1.5rem' }}>
-        <div className="heatmap-container">
-          <div className="heatmap-header">
-            <div>
-              <h3 className="heatmap-title">
-                <Flame size={18} style={{ color: 'var(--color-primary)' }} />
-                <span>Contribution Activity</span>
-              </h3>
-              <span className="heatmap-subtitle">Visualizing solved problems over the past year</span>
-            </div>
-            <div className="heatmap-legend">
-              <span>Less</span>
-              <div className="legend-square level-0"></div>
-              <div className="legend-square level-1"></div>
-              <div className="legend-square level-2"></div>
-              <div className="legend-square level-3"></div>
-              <div className="legend-square level-4"></div>
-              <span>More</span>
-            </div>
-          </div>
-          
-          <div className="heatmap-scroll">
-            <div className="heatmap-grid">
-              {heatmapDays.map((day, idx) => (
-                <div
-                  key={idx}
-                  className={`heatmap-day level-${day.level}`}
-                  data-tooltip={day.tooltip}
-                ></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Lower Row: Recent Activity & Quick Navigation */}
-      <div className="dashboard-grid" style={{ marginTop: '1.5rem' }}>
-        
-        {/* Recent Solved Problems */}
-        <div className="card col-8">
-          <div className="flex-between" style={{ marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>Recent Submissions</span>
-            </h3>
-            <button 
-              className="text-link" 
-              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.9rem' }}
-              onClick={() => setActiveTab('problems')}
-            >
-              View all
-            </button>
-          </div>
-
-          {recentProblems.length === 0 ? (
-            <div className="empty-state">
-              <HelpCircle size={40} />
-              <p>No solved problems logged yet.</p>
-            </div>
-          ) : (
-            <div className="table-container" style={{ background: 'none', border: 'none', borderRadius: 0 }}>
-              <table className="tracker-table">
-                <thead>
-                  <tr>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Problem</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Difficulty</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Category</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Beats</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentProblems.map((prob) => (
-                    <tr key={prob._id || prob.id}>
-                      <td style={{ padding: '0.85rem 0.5rem' }}>
-                        {prob.link ? (
-                          <a href={prob.link} target="_blank" rel="noopener noreferrer" className="text-link">
-                            {prob.title}
-                            <ExternalLink size={12} />
-                          </a>
-                        ) : (
-                          <span>{prob.title}</span>
-                        )}
-                      </td>
-                      <td style={{ padding: '0.85rem 0.5rem' }}>
-                        <span className={`badge badge-${prob.difficulty.toLowerCase()}`}>
-                          {prob.difficulty}
-                        </span>
-                      </td>
-                      <td style={{ padding: '0.85rem 0.5rem', color: 'var(--text-secondary)' }}>
-                        {prob.category}
-                      </td>
-                      <td style={{ padding: '0.85rem 0.5rem', fontWeight: 600 }}>
-                        {prob.runtimeBeats ? `${prob.runtimeBeats}%` : '-'}
-                      </td>
-                      <td style={{ padding: '0.85rem 0.5rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                        {new Date(prob.solvedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      </td>
-                    </tr>
+          {/* Contribution Calendar Heatmap */}
+          <div className="card" style={{ padding: '1.5rem' }}>
+            <div className="heatmap-container">
+              <div className="heatmap-header">
+                <div>
+                  <h3 className="heatmap-title">
+                    <Flame size={18} style={{ color: 'var(--color-primary)' }} />
+                    <span>Contribution Activity</span>
+                  </h3>
+                  <span className="heatmap-subtitle">Visualizing solved problems over the past year</span>
+                </div>
+                <div className="heatmap-legend">
+                  <span>Less</span>
+                  <div className="legend-square level-0"></div>
+                  <div className="legend-square level-1"></div>
+                  <div className="legend-square level-2"></div>
+                  <div className="legend-square level-3"></div>
+                  <div className="legend-square level-4"></div>
+                  <span>More</span>
+                </div>
+              </div>
+              
+              <div className="heatmap-scroll">
+                <div className="heatmap-grid">
+                  {heatmapDays.map((day, idx) => (
+                    <div
+                      key={idx}
+                      className={`heatmap-day level-${day.level}`}
+                      data-tooltip={day.tooltip}
+                    ></div>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              </div>
             </div>
-          )}
+          </div>
+
+          {/* Solved Problems Columns Layout (Easy / Medium / Hard) */}
+          <div>
+            <h3 className="section-title" style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span>Solved Problems Board</span>
+            </h3>
+            <div className="solved-columns-container">
+              
+              {/* Easy Column */}
+              <div className="solved-column card-easy">
+                <div className="solved-column-header easy">
+                  <span>🟢 Easy Solves</span>
+                  <span style={{ fontSize: '0.8rem', background: 'rgba(16, 185, 129, 0.15)', padding: '0.1rem 0.5rem', borderRadius: '20px', fontWeight: 700 }}>
+                    {easyProblems.length}
+                  </span>
+                </div>
+                <div className="solved-column-list">
+                  {easyProblems.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--text-muted)', fontSize: '0.85rem', border: '1px dashed rgba(255,255,255,0.03)', borderRadius: '8px' }}>
+                      No Easy problems solved.
+                    </div>
+                  ) : (
+                    easyProblems.map(p => (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card easy" key={p._id || p.id}>
+                        <div className="solved-problem-title-row">
+                          <span className="solved-problem-title" title={p.title}>{p.title}</span>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                            {new Date(p.solvedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          </span>
+                        </div>
+                        <div className="solved-problem-meta">
+                          <span className="solved-problem-category">{p.category}</span>
+                          {p.runtimeBeats && (
+                            <span className="solved-problem-beats easy">Beats {p.runtimeBeats}%</span>
+                          )}
+                        </div>
+                      </a>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Medium Column */}
+              <div className="solved-column card-medium">
+                <div className="solved-column-header medium">
+                  <span>🟡 Medium Solves</span>
+                  <span style={{ fontSize: '0.8rem', background: 'rgba(245, 158, 11, 0.15)', padding: '0.1rem 0.5rem', borderRadius: '20px', fontWeight: 700 }}>
+                    {mediumProblems.length}
+                  </span>
+                </div>
+                <div className="solved-column-list">
+                  {mediumProblems.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--text-muted)', fontSize: '0.85rem', border: '1px dashed rgba(255,255,255,0.03)', borderRadius: '8px' }}>
+                      No Medium problems solved.
+                    </div>
+                  ) : (
+                    mediumProblems.map(p => (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card medium" key={p._id || p.id}>
+                        <div className="solved-problem-title-row">
+                          <span className="solved-problem-title" title={p.title}>{p.title}</span>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                            {new Date(p.solvedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          </span>
+                        </div>
+                        <div className="solved-problem-meta">
+                          <span className="solved-problem-category">{p.category}</span>
+                          {p.runtimeBeats && (
+                            <span className="solved-problem-beats medium">Beats {p.runtimeBeats}%</span>
+                          )}
+                        </div>
+                      </a>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Hard Column */}
+              <div className="solved-column card-hard">
+                <div className="solved-column-header hard">
+                  <span>🔴 Hard Solves</span>
+                  <span style={{ fontSize: '0.8rem', background: 'rgba(239, 68, 68, 0.15)', padding: '0.1rem 0.5rem', borderRadius: '20px', fontWeight: 700 }}>
+                    {hardProblems.length}
+                  </span>
+                </div>
+                <div className="solved-column-list">
+                  {hardProblems.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--text-muted)', fontSize: '0.85rem', border: '1px dashed rgba(255,255,255,0.03)', borderRadius: '8px' }}>
+                      No Hard problems solved.
+                    </div>
+                  ) : (
+                    hardProblems.map(p => (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card hard" key={p._id || p.id}>
+                        <div className="solved-problem-title-row">
+                          <span className="solved-problem-title" title={p.title}>{p.title}</span>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                            {new Date(p.solvedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          </span>
+                        </div>
+                        <div className="solved-problem-meta">
+                          <span className="solved-problem-category">{p.category}</span>
+                          {p.runtimeBeats && (
+                            <span className="solved-problem-beats hard">Beats {p.runtimeBeats}%</span>
+                          )}
+                        </div>
+                      </a>
+                    ))
+                  )}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
-        {/* Action Panel */}
-        <div className="card col-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
-          <div>
+        {/* RIGHT COLUMN: Streak, Profile Sync, Quick Actions, Target Progress (Span 4) */}
+        <div className="col-4" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          
+          {/* Streak Card */}
+          <div className="card streak-card card-streak" style={{ width: '100%' }}>
+            <div className="flex-between" style={{ marginBottom: '1rem' }}>
+              <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Daily Streak</span>
+              <div className="stat-icon">
+                <span className="streak-flame">🔥</span>
+              </div>
+            </div>
+            <div>
+              <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--text-primary)', display: 'inline-block' }}>
+                {currentStreak}
+              </h1>
+              <span style={{ marginLeft: '0.5rem', fontSize: '1.1rem', fontWeight: 600, color: 'var(--fire-orange)' }}>
+                days
+              </span>
+            </div>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+              {solvedToday ? "Solved today! Keep it up!" : "Solve a problem today to continue your streak!"}
+            </p>
+            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1.25rem', borderTop: '1px solid rgba(255,90,31,0.15)', paddingTop: '1rem' }}>
+              <div>
+                <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>LONGEST STREAK</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>{longestStreak} days</span>
+              </div>
+              <div>
+                <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>STATUS</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 700, color: solvedToday ? 'var(--color-easy)' : 'var(--color-medium)' }}>
+                  {solvedToday ? 'Active' : 'Awaiting Solve'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Actions & Profile Sync Panel */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
+            
             {/* Synced Profile Information */}
             {leetcodeProfile && (
-              <div style={{ marginBottom: '1.25rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+              <div style={{ marginBottom: '0.25rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                 <img
                   src={leetcodeProfile.userAvatar || 'https://assets.leetcode.com/users/default_avatar.jpg'}
                   alt="LeetCode Avatar"
@@ -319,12 +367,12 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
             )}
 
             {/* Sync Section */}
-            <div style={{ marginBottom: '1.25rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
                 <span>Sync LeetCode Account</span>
               </h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
                 Fetch public submissions and contest histories automatically.
               </p>
               <form onSubmit={(e) => {
@@ -349,26 +397,32 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
               </form>
             </div>
 
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Quick Actions</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
-              Logged a new solve, or completed a LeetCode contest? Add it to your stats now.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <button className="btn btn-primary" onClick={onAddProblemClick} style={{ width: '100%' }}>
-                <Plus size={16} />
-                <span>Log Solved Problem</span>
-              </button>
-              <button className="btn" onClick={onAddContestClick} style={{ width: '100%', borderColor: 'rgba(255,255,255,0.06)' }}>
-                <Plus size={16} />
-                <span>Log Contest Result</span>
-              </button>
+            {/* Quick Actions */}
+            <div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Quick Actions</h3>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                Manually record a new solve or log a contest performance.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <button className="btn btn-primary" onClick={onAddProblemClick} style={{ width: '100%' }}>
+                  <Plus size={16} />
+                  <span>Log Solved Problem</span>
+                </button>
+                <button className="btn" onClick={onAddContestClick} style={{ width: '100%', borderColor: 'rgba(255,255,255,0.06)' }}>
+                  <Plus size={16} />
+                  <span>Log Contest Result</span>
+                </button>
+              </div>
             </div>
+
           </div>
-          
-          <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '0.75rem', border: '1px solid var(--card-border)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+
+          {/* Goal Tracker Info Box */}
+          <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.25rem', borderRadius: '1.25rem', border: '1px solid var(--card-border)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
             <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '0.25rem' }}>🎯 Weekly Target</strong>
             Log at least 5 solves per week. Go to the <span style={{ color: 'var(--color-primary)', fontWeight: 600, cursor: 'pointer' }} onClick={() => setActiveTab('analytics')}>Analytics</span> tab to see progress.
           </div>
+
         </div>
 
       </div>
@@ -376,7 +430,7 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
   );
 }
 
-// Inline Trophy icon (Recharts requires standard components, we define locally or import)
+// Inline Trophy icon
 function TrophyIcon({ size }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

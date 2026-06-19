@@ -205,9 +205,173 @@ body {
 
 .card:hover {
   border-color: var(--card-hover-border);
-  box-shadow: var(--shadow-lg), var(--glow-primary);
-  transform: translateY(-2px);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    0 0 25px 0 rgba(99, 102, 241, 0.2);
+  transform: translateY(-4px) scale(1.005);
 }
+
+/* Card Glows based on Difficulty Tiers */
+.card-easy:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    0 0 25px 0 rgba(16, 185, 129, 0.15);
+}
+
+.card-medium:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    0 0 25px 0 rgba(245, 158, 11, 0.15);
+}
+
+.card-hard:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    0 0 25px 0 rgba(239, 68, 68, 0.15);
+}
+
+.card-streak:hover {
+  border-color: rgba(255, 90, 31, 0.4);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    0 0 25px 0 rgba(255, 90, 31, 0.2);
+}
+
+/* Solved Problems Columns Layout */
+.solved-columns-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .solved-columns-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.solved-column {
+  background: rgba(20, 20, 35, 0.35);
+  border: 1px solid var(--card-border);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.solved-column-header {
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.solved-column-header.easy {
+  border-color: var(--color-easy);
+  color: var(--color-easy);
+}
+
+.solved-column-header.medium {
+  border-color: var(--color-medium);
+  color: var(--color-medium);
+}
+
+.solved-column-header.hard {
+  border-color: var(--color-hard);
+  color: var(--color-hard);
+}
+
+.solved-column-list {
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-right: 0.25rem;
+}
+
+.solved-problem-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.solved-problem-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.solved-problem-card.easy:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
+}
+
+.solved-problem-card.medium:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+}
+
+.solved-problem-card.hard:hover {
+  border-color: rgba(239, 68, 68, 0.35);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
+}
+
+.solved-problem-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.solved-problem-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 75%;
+}
+
+.solved-problem-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.solved-problem-category {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.solved-problem-beats {
+  font-weight: 700;
+}
+
+.solved-problem-beats.easy { color: var(--color-easy); }
+.solved-problem-beats.medium { color: var(--color-medium); }
+.solved-problem-beats.hard { color: var(--color-hard); }
 
 /* Grid Layouts */
 .dashboard-grid {

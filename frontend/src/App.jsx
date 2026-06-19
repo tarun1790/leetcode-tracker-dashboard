@@ -180,6 +180,7 @@ export default function App() {
         return (
           <Dashboard
             stats={dashboardStats}
+            problems={problems}
             onAddProblemClick={triggerAddProblemFlow}
             onAddContestClick={triggerAddContestFlow}
             setActiveTab={setActiveTab}
