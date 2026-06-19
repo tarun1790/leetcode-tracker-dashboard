@@ -1,4 +1,4 @@
-# LeetCode Tracker Dashboard ⭐⭐⭐⭐
+# LeetCode Tracker Dashboard
 
 An elegant, feature-rich developer dashboard to track solved LeetCode challenges, visualize problem-solving streaks, log contest performance, and analyze DSA prep metrics. 
 
@@ -48,7 +48,7 @@ By default, the backend operates without requiring a MongoDB installation. Data 
 * `backend/data/problems.json`
 * `backend/data/contests.json`
 
-On the first launch, if these files are empty, the application auto-populates **8 mock LeetCode problems** and **3 contest records** to make the dashboard immediately interactive.
+On the first launch, if these files are empty, the application auto-populates **8 mock LeetCode problems** and **3 contest records** to make the dashboard immediately interactive
 
 ### MongoDB Integration
 To connect the application to a real MongoDB database:
@@ -59,4 +59,4 @@ To connect the application to a real MongoDB database:
    PORT=5000
    MONGO_URI=mongodb://localhost:27017/leetcode-tracker
    ```
-4. Restart the servers. The backend will automatically detect the database and connect, seeding the database if it is empty.
+4. Restart the servers. The backend will automatically detect the database and connect, seeding the database if it is empty
