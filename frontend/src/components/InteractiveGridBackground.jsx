@@ -17,13 +17,12 @@ export default function InteractiveGridBackground() {
     const spacing = 32;
     const maxDistance = 250; // Radius of interaction
 
-    class Dash {
+    class Bubble {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.angle = Math.PI / 4; // Initial default tilt (45 degrees)
-        this.length = 2;
-        this.opacity = 0.05;
+        this.radius = 1.5; // Base radius (looks like a small dot)
+        this.opacity = 0.06;
         this.hue = 0;
         this.isGlowing = false;
       }
@@ -33,33 +32,24 @@ export default function InteractiveGridBackground() {
         const dy = this.y - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        let targetAngle = Math.PI / 4; // Default tilt angle (45 deg)
-        let targetOpacity = 0.05;
-        let targetLength = 2;
+        let targetRadius = 1.5; // Faint tiny dot
+        let targetOpacity = 0.06;
         let targetHue = 0;
         let glowing = false;
 
         if (active && dist < maxDistance) {
-          const factor = 1 - dist / maxDistance;
-          // Perpendicular (tangent) angle to create concentric circles around cursor
-          targetAngle = Math.atan2(dy, dx) + Math.PI / 2;
-          // Opacity goes up to 0.5
-          targetOpacity = 0.05 + factor * 0.45;
-          // Length goes up to 10px
-          targetLength = 2 + factor * 8;
+          const factor = 1 - dist / maxDistance; // 1 at cursor, 0 at boundary
+          // Radius expands up to 9px (looks like a bubble)
+          targetRadius = 1.5 + factor * 7.5;
+          // Opacity goes up to 0.55
+          targetOpacity = 0.06 + factor * 0.5;
           // Radial hue sweep centered at the cursor
           targetHue = Math.floor((Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360);
           glowing = true;
         }
 
-        // Smoothly interpolate angle
-        let angleDiff = targetAngle - this.angle;
-        // Normalize angle difference to [-PI, PI] to prevent spins
-        angleDiff = Math.atan2(Math.sin(angleDiff), Math.cos(angleDiff));
-        this.angle += angleDiff * 0.1;
-
-        // Smoothly interpolate length and opacity
-        this.length += (targetLength - this.length) * 0.1;
+        // Smoothly interpolate radius and opacity
+        this.radius += (targetRadius - this.radius) * 0.1;
         this.opacity += (targetOpacity - this.opacity) * 0.1;
         this.hue = targetHue;
         this.isGlowing = glowing;
@@ -67,43 +57,41 @@ export default function InteractiveGridBackground() {
 
       draw() {
         ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-
         ctx.beginPath();
-        ctx.moveTo(-this.length / 2, 0);
-        ctx.lineTo(this.length / 2, 0);
-        ctx.lineWidth = 1.8;
-        ctx.lineCap = 'round';
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 
-        if (this.isGlowing && this.opacity > 0.06) {
-          // Glow state: beautiful dynamic HSL color wheel centered on cursor
+        if (this.isGlowing && this.opacity > 0.07) {
+          // Glow state: bubble with colorful stroke and faint transparent fill
           ctx.strokeStyle = `hsla(${this.hue}, 85%, 65%, ${this.opacity})`;
+          ctx.fillStyle = `hsla(${this.hue}, 85%, 65%, ${this.opacity * 0.15})`;
+          ctx.lineWidth = 1.5;
           ctx.shadowColor = `hsla(${this.hue}, 85%, 65%, 0.4)`;
           ctx.shadowBlur = 3;
+          ctx.fill();
+          ctx.stroke();
         } else {
-          // Faint grey default state
-          ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+          // Inactive state: tiny solid grey dot
+          ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
           ctx.shadowBlur = 0;
+          ctx.fill();
         }
 
-        ctx.stroke();
         ctx.restore();
       }
     }
 
-    let dashes = [];
+    let bubbles = [];
     const initGrid = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      dashes = [];
+      bubbles = [];
 
       const cols = Math.ceil(width / spacing) + 1;
       const rows = Math.ceil(height / spacing) + 1;
 
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < rows; r++) {
-          dashes.push(new Dash(c * spacing, r * spacing));
+          bubbles.push(new Bubble(c * spacing, r * spacing));
         }
       }
     };
@@ -135,9 +123,9 @@ export default function InteractiveGridBackground() {
       const my = mouseRef.current.y;
       const active = mouseRef.current.active;
 
-      dashes.forEach((dash) => {
-        dash.update(mx, my, active);
-        dash.draw();
+      bubbles.forEach((bubble) => {
+        bubble.update(mx, my, active);
+        bubble.draw();
       });
 
       animationFrameId = requestAnimationFrame(render);
