@@ -185,11 +185,13 @@ async function init() {
   // Set up local file databases
   isMongo = false;
   if (!await fs.pathExists(PROBLEMS_FILE)) {
-    await fs.writeJson(PROBLEMS_FILE, mockProblems, { spaces: 2 });
+    const problemsWithIds = mockProblems.map(p => ({ id: generateId(), ...p }));
+    await fs.writeJson(PROBLEMS_FILE, problemsWithIds, { spaces: 2 });
     console.log('Created local problems database with seed data.');
   }
   if (!await fs.pathExists(CONTESTS_FILE)) {
-    await fs.writeJson(CONTESTS_FILE, mockContests, { spaces: 2 });
+    const contestsWithIds = mockContests.map(c => ({ id: generateId(), ...c }));
+    await fs.writeJson(CONTESTS_FILE, contestsWithIds, { spaces: 2 });
     console.log('Created local contests database with seed data.');
   }
 }
