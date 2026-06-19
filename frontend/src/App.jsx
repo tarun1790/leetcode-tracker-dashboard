@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import ProblemsTracker from './components/ProblemsTracker';
 import ContestRatings from './components/ContestRatings';
 import Analytics from './components/Analytics';
+import InteractiveGridBackground from './components/InteractiveGridBackground';
 
 const API_BASE = 'http://localhost:5000/api';
 
@@ -218,6 +219,7 @@ export default function App() {
 
   return (
     <div className="app-container">
+      <InteractiveGridBackground />
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
