@@ -6,6 +6,7 @@ import ContestRatings from './components/ContestRatings';
 import Analytics from './components/Analytics';
 import InteractiveGridBackground from './components/InteractiveGridBackground';
 
+
 const API_BASE = 'http://localhost:5000/api';
 
 export default function App() {
@@ -221,6 +222,7 @@ export default function App() {
     <div className="app-container">
       <InteractiveGridBackground />
       <Navbar 
+
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         dbType={dashboardStats.dbType} 

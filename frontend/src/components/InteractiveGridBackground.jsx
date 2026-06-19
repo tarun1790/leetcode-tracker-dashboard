@@ -13,46 +13,56 @@ export default function InteractiveGridBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Grid spacing configurations
-    const spacing = 35;
-    const dashLength = 8;
-    const maxDistance = 180; // hover glow radius
+    // Spacing between grid points
+    const spacing = 32;
+    const maxDistance = 250; // Radius of interaction
 
-    // Particle class representing each dash
     class Dash {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.angle = 0;
-        this.targetAngle = 0;
-        this.opacity = 0.08;
-        this.targetOpacity = 0.08;
-        // Static hue based on screen position to create a beautiful fixed gradient map
-        this.hue = Math.floor(((x / width) * 100 + (y / height) * 200) + 260) % 360; 
+        this.angle = Math.PI / 4; // Initial default tilt (45 degrees)
+        this.length = 2;
+        this.opacity = 0.05;
+        this.hue = 0;
+        this.isGlowing = false;
       }
 
       update(mx, my, active) {
-        const dx = mx - this.x;
-        const dy = my - this.y;
+        const dx = this.x - mx;
+        const dy = this.y - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
+        let targetAngle = Math.PI / 4; // Default tilt angle (45 deg)
+        let targetOpacity = 0.05;
+        let targetLength = 2;
+        let targetHue = 0;
+        let glowing = false;
+
         if (active && dist < maxDistance) {
-          // Rotate to point towards the cursor
-          this.targetAngle = Math.atan2(dy, dx);
-          // Fade in based on proximity
-          this.targetOpacity = 0.15 + (1 - dist / maxDistance) * 0.75;
-        } else {
-          // Default state
-          this.targetAngle = Math.PI / 4; // 45 degrees default tilt
-          this.targetOpacity = 0.06;
+          const factor = 1 - dist / maxDistance;
+          // Perpendicular (tangent) angle to create concentric circles around cursor
+          targetAngle = Math.atan2(dy, dx) + Math.PI / 2;
+          // Opacity goes up to 0.5
+          targetOpacity = 0.05 + factor * 0.45;
+          // Length goes up to 10px
+          targetLength = 2 + factor * 8;
+          // Radial hue sweep centered at the cursor
+          targetHue = Math.floor((Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360);
+          glowing = true;
         }
 
-        // Smooth transitions (interpolation)
-        let angleDiff = this.targetAngle - this.angle;
-        // Normalize angle difference to [-PI, PI] for shortest rotation path
+        // Smoothly interpolate angle
+        let angleDiff = targetAngle - this.angle;
+        // Normalize angle difference to [-PI, PI] to prevent spins
         angleDiff = Math.atan2(Math.sin(angleDiff), Math.cos(angleDiff));
         this.angle += angleDiff * 0.1;
-        this.opacity += (this.targetOpacity - this.opacity) * 0.1;
+
+        // Smoothly interpolate length and opacity
+        this.length += (targetLength - this.length) * 0.1;
+        this.opacity += (targetOpacity - this.opacity) * 0.1;
+        this.hue = targetHue;
+        this.isGlowing = glowing;
       }
 
       draw() {
@@ -60,20 +70,19 @@ export default function InteractiveGridBackground() {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
 
-        // Draw the dash segment
         ctx.beginPath();
-        ctx.moveTo(-dashLength / 2, 0);
-        ctx.lineTo(dashLength / 2, 0);
-        ctx.lineWidth = 2.5;
+        ctx.moveTo(-this.length / 2, 0);
+        ctx.lineTo(this.length / 2, 0);
+        ctx.lineWidth = 1.8;
         ctx.lineCap = 'round';
 
-        if (this.opacity > 0.08) {
-          // Glowing state: colorful gradient sweep
+        if (this.isGlowing && this.opacity > 0.06) {
+          // Glow state: beautiful dynamic HSL color wheel centered on cursor
           ctx.strokeStyle = `hsla(${this.hue}, 85%, 65%, ${this.opacity})`;
           ctx.shadowColor = `hsla(${this.hue}, 85%, 65%, 0.4)`;
-          ctx.shadowBlur = 4;
+          ctx.shadowBlur = 3;
         } else {
-          // Inactive state: faint grey
+          // Faint grey default state
           ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
           ctx.shadowBlur = 0;
         }
@@ -101,7 +110,6 @@ export default function InteractiveGridBackground() {
 
     initGrid();
 
-    // Event listeners
     const handleMouseMove = (e) => {
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
@@ -120,7 +128,6 @@ export default function InteractiveGridBackground() {
     document.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
 
-    // Animation Render Loop
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
@@ -138,7 +145,6 @@ export default function InteractiveGridBackground() {
 
     render();
 
-    // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -158,7 +164,7 @@ export default function InteractiveGridBackground() {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.85
+        opacity: 0.75
       }}
     />
   );
