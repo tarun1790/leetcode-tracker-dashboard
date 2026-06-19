@@ -21,8 +21,8 @@ export default function InteractiveGridBackground() {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.radius = 1.0; // Smaller base radius
-        this.opacity = 0.04; // Slightly fainter default opacity
+        this.radius = 0.8; // Even smaller base radius
+        this.opacity = 0.03; // Softer default opacity
         this.isGlowing = false;
       }
 
@@ -31,16 +31,16 @@ export default function InteractiveGridBackground() {
         const dy = this.y - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        let targetRadius = 1.0;
-        let targetOpacity = 0.04;
+        let targetRadius = 0.8;
+        let targetOpacity = 0.03;
         let glowing = false;
 
         if (active && dist < maxDistance) {
           const factor = 1 - dist / maxDistance;
-          // Radius expands up to 4.5px (much smaller and more elegant)
-          targetRadius = 1.0 + factor * 3.5;
-          // Opacity goes up to 0.50
-          targetOpacity = 0.04 + factor * 0.46;
+          // Radius expands up to 2.5px (extremely clean micro-dots)
+          targetRadius = 0.8 + factor * 1.7;
+          // Opacity goes up to 0.40
+          targetOpacity = 0.03 + factor * 0.37;
           glowing = true;
         }
 
@@ -55,14 +55,14 @@ export default function InteractiveGridBackground() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 
-        if (this.isGlowing && this.opacity > 0.05) {
+        if (this.isGlowing && this.opacity > 0.04) {
           // Glow state: solid glowing golden brown dot (hue 38)
           // Gradients the lightness to be slightly brighter gold at the cursor center
-          const factor = (this.radius - 1.0) / 3.5;
+          const factor = (this.radius - 0.8) / 1.7;
           const lightness = 42 + factor * 18;
           ctx.fillStyle = `hsla(38, 78%, ${lightness}%, ${this.opacity})`;
           ctx.shadowColor = `hsla(38, 78%, 50%, 0.4)`;
-          ctx.shadowBlur = 4;
+          ctx.shadowBlur = 3;
           ctx.fill();
         } else {
           // Inactive state: tiny solid grey dot
