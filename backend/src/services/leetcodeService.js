@@ -79,8 +79,37 @@ async function fetchContestHistory(username) {
   return data.userContestRankingHistory || [];
 }
 
+// 4. Fetch overall user profile and stats
+async function fetchUserProfile(username) {
+  const query = `
+    query userProblemsSolved($username: String!) {
+      matchedUser(username: $username) {
+        username
+        profile {
+          ranking
+          userAvatar
+          reputation
+        }
+        submitStats {
+          acSubmissionNum {
+            difficulty
+            count
+          }
+        }
+      }
+      userContestRanking(username: $username) {
+        rating
+        globalRanking
+      }
+    }
+  `;
+  const data = await graphqlCall(query, { username });
+  return data;
+}
+
 module.exports = {
   fetchRecentSubmissions,
   fetchQuestionDetails,
-  fetchContestHistory
+  fetchContestHistory,
+  fetchUserProfile
 };

@@ -15,7 +15,8 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
     currentRating = 1500,
     peakRating = 1500,
     contributionMap = {},
-    recentProblems = []
+    recentProblems = [],
+    leetcodeProfile = null
   } = stats;
 
   // Generate 53 weeks * 7 days of heatmap squares ending today
@@ -293,6 +294,30 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
         {/* Action Panel */}
         <div className="card col-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
           <div>
+            {/* Synced Profile Information */}
+            {leetcodeProfile && (
+              <div style={{ marginBottom: '1.25rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                <img
+                  src={leetcodeProfile.userAvatar || 'https://assets.leetcode.com/users/default_avatar.jpg'}
+                  alt="LeetCode Avatar"
+                  style={{ width: '42px', height: '42px', borderRadius: '50%', border: '2px solid var(--color-primary)', boxShadow: '0 0 8px var(--color-primary-glow)' }}
+                  onError={(e) => { e.target.src = 'https://assets.leetcode.com/users/default_avatar.jpg'; }}
+                />
+                <div style={{ flex: 1 }}>
+                  <div className="flex-between">
+                    <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>{leetcodeProfile.username}</span>
+                    <span style={{ fontSize: '0.75rem', background: 'rgba(99,102,241,0.15)', color: 'var(--color-primary)', padding: '0.1rem 0.4rem', borderRadius: '4px', fontWeight: 600 }}>Linked</span>
+                  </div>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block', marginTop: '0.1rem' }}>
+                    Global Rank: <strong>{leetcodeProfile.ranking > 1000000 ? '> 1M' : `#${leetcodeProfile.ranking.toLocaleString()}`}</strong>
+                  </span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'block' }}>
+                    Profile Solved: <span className="text-easy" style={{fontWeight:600}}>{leetcodeProfile.easyCount}E</span> | <span className="text-medium" style={{fontWeight:600}}>{leetcodeProfile.mediumCount}M</span> | <span className="text-hard" style={{fontWeight:600}}>{leetcodeProfile.hardCount}H</span>
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Sync Section */}
             <div style={{ marginBottom: '1.25rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

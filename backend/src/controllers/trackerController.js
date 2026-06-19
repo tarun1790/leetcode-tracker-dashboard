@@ -179,6 +179,8 @@ exports.getDashboardStats = async (req, res) => {
       contributionMap[dateStr] = (contributionMap[dateStr] || 0) + 1;
     });
 
+    const leetcodeProfile = await db.getLeetcodeProfile();
+
     res.json({
       totalSolved: problems.length,
       easyCount,
@@ -194,7 +196,8 @@ exports.getDashboardStats = async (req, res) => {
       peakRating,
       contributionMap,
       recentProblems: problems.slice(0, 5),
-      dbType: db.isMongoConnected() ? 'MongoDB' : 'Local JSON'
+      dbType: db.isMongoConnected() ? 'MongoDB' : 'Local JSON',
+      leetcodeProfile
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -288,6 +291,37 @@ exports.syncLeetcodeAccount = async (req, res) => {
   }
 
   try {
+    // 1. Fetch user profile stats first to validate username
+    console.log(`Validating and fetching LeetCode profile for ${username}...`);
+    const profileDetails = await leetcodeService.fetchUserProfile(username);
+    if (!profileDetails || !profileDetails.matchedUser) {
+      return res.status(404).json({ error: `LeetCode user "${username}" not found or profile is private.` });
+    }
+
+    // 2. Clear preloaded mock data to replace it with user's actual solved items!
+    await db.clearMockData();
+
+    // Parse and save profile stats
+    const matchedUser = profileDetails.matchedUser;
+    const acSubmissionNum = matchedUser.submitStats.acSubmissionNum;
+    
+    const easyCount = (acSubmissionNum.find(a => a.difficulty === 'Easy') || { count: 0 }).count;
+    const mediumCount = (acSubmissionNum.find(a => a.difficulty === 'Medium') || { count: 0 }).count;
+    const hardCount = (acSubmissionNum.find(a => a.difficulty === 'Hard') || { count: 0 }).count;
+    const totalSolved = (acSubmissionNum.find(a => a.difficulty === 'All') || { count: 0 }).count;
+
+    await db.saveLeetcodeProfile({
+      username: matchedUser.username,
+      ranking: matchedUser.profile.ranking,
+      userAvatar: matchedUser.profile.userAvatar,
+      reputation: matchedUser.profile.reputation,
+      easyCount,
+      mediumCount,
+      hardCount,
+      totalSolved,
+      rating: profileDetails.userContestRanking ? Math.round(profileDetails.userContestRanking.rating) : 1500
+    });
+
     const problems = await db.getProblems();
     const contests = await db.getContests();
 
@@ -298,7 +332,7 @@ exports.syncLeetcodeAccount = async (req, res) => {
     let problemsSyncedCount = 0;
     let contestsSyncedCount = 0;
 
-    // 1. Fetch recent accepted submissions
+    // 3. Fetch recent accepted submissions
     console.log(`Syncing submissions for user ${username}...`);
     const recentSubmissions = await leetcodeService.fetchRecentSubmissions(username);
 

@@ -21,6 +21,7 @@ const ProblemSchema = new mongoose.Schema({
   runtimeBeats: { type: Number }, // percentage
   memoryBeats: { type: Number }, // percentage
   solvedAt: { type: Date, default: Date.now },
+  isMock: { type: Boolean, default: false }
 });
 
 const ContestSchema = new mongoose.Schema({
@@ -29,7 +30,8 @@ const ContestSchema = new mongoose.Schema({
   rank: { type: Number, required: true },
   rating: { type: Number, required: true },
   date: { type: Date, required: true },
-  notes: { type: String }
+  notes: { type: String },
+  isMock: { type: Boolean, default: false }
 });
 
 let ProblemModel;
@@ -168,8 +170,10 @@ async function init() {
       const pCount = await ProblemModel.countDocuments();
       if (pCount === 0) {
         console.log('MongoDB is empty. Seeding mock data...');
-        await ProblemModel.insertMany(mockProblems);
-        await ContestModel.insertMany(mockContests);
+        const problemsWithMockTag = mockProblems.map(p => ({ ...p, isMock: true }));
+        const contestsWithMockTag = mockContests.map(c => ({ ...c, isMock: true }));
+        await ProblemModel.insertMany(problemsWithMockTag);
+        await ContestModel.insertMany(contestsWithMockTag);
         console.log('MongoDB seeding completed.');
       }
       return;
@@ -185,12 +189,12 @@ async function init() {
   // Set up local file databases
   isMongo = false;
   if (!await fs.pathExists(PROBLEMS_FILE)) {
-    const problemsWithIds = mockProblems.map(p => ({ id: generateId(), ...p }));
+    const problemsWithIds = mockProblems.map(p => ({ id: generateId(), isMock: true, ...p }));
     await fs.writeJson(PROBLEMS_FILE, problemsWithIds, { spaces: 2 });
     console.log('Created local problems database with seed data.');
   }
   if (!await fs.pathExists(CONTESTS_FILE)) {
-    const contestsWithIds = mockContests.map(c => ({ id: generateId(), ...c }));
+    const contestsWithIds = mockContests.map(c => ({ id: generateId(), isMock: true, ...c }));
     await fs.writeJson(CONTESTS_FILE, contestsWithIds, { spaces: 2 });
     console.log('Created local contests database with seed data.');
   }
@@ -304,6 +308,38 @@ async function deleteContest(id) {
   }
 }
 
+const PROFILE_FILE = path.join(DATA_DIR, 'leetcode_profile.json');
+
+async function saveLeetcodeProfile(profileData) {
+  await fs.writeJson(PROFILE_FILE, profileData, { spaces: 2 });
+  return profileData;
+}
+
+async function getLeetcodeProfile() {
+  if (await fs.pathExists(PROFILE_FILE)) {
+    return await fs.readJson(PROFILE_FILE);
+  }
+  return null;
+}
+
+async function clearMockData() {
+  if (isMongo) {
+    await ProblemModel.deleteMany({ isMock: true });
+    await ContestModel.deleteMany({ isMock: true });
+  } else {
+    if (await fs.pathExists(PROBLEMS_FILE)) {
+      const pList = await fs.readJson(PROBLEMS_FILE);
+      const filteredP = pList.filter(p => !p.isMock);
+      await fs.writeJson(PROBLEMS_FILE, filteredP, { spaces: 2 });
+    }
+    if (await fs.pathExists(CONTESTS_FILE)) {
+      const cList = await fs.readJson(CONTESTS_FILE);
+      const filteredC = cList.filter(c => !c.isMock);
+      await fs.writeJson(CONTESTS_FILE, filteredC, { spaces: 2 });
+    }
+  }
+}
+
 module.exports = {
   init,
   getProblems,
@@ -312,5 +348,8 @@ module.exports = {
   getContests,
   saveContest,
   deleteContest,
-  isMongoConnected: () => isMongo
+  isMongoConnected: () => isMongo,
+  saveLeetcodeProfile,
+  getLeetcodeProfile,
+  clearMockData
 };
