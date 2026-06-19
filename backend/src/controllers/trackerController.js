@@ -1,4 +1,5 @@
 const db = require('../db/storage');
+const leetcodeService = require('../services/leetcodeService');
 
 // Helper to normalize a date to local YYYY-MM-DD string
 function toLocalDateString(dateInput) {
@@ -279,3 +280,98 @@ exports.getAnalyticsStats = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.syncLeetcodeAccount = async (req, res) => {
+  const { username } = req.body;
+  if (!username) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+
+  try {
+    const problems = await db.getProblems();
+    const contests = await db.getContests();
+
+    // Map existing records to identify duplicates
+    const existingProblemTitles = new Set(problems.map(p => p.title.toLowerCase().trim()));
+    const existingContestNames = new Set(contests.map(c => c.name.toLowerCase().trim()));
+
+    let problemsSyncedCount = 0;
+    let contestsSyncedCount = 0;
+
+    // 1. Fetch recent accepted submissions
+    console.log(`Syncing submissions for user ${username}...`);
+    const recentSubmissions = await leetcodeService.fetchRecentSubmissions(username);
+
+    // Fetch problem details and save
+    for (const sub of recentSubmissions) {
+      const normalizedTitle = sub.title.toLowerCase().trim();
+      if (!existingProblemTitles.has(normalizedTitle)) {
+        try {
+          console.log(`Fetching details for question ${sub.titleSlug}...`);
+          const details = await leetcodeService.fetchQuestionDetails(sub.titleSlug);
+          
+          if (details) {
+            // Determine category
+            let category = 'Algorithms';
+            if (details.topicTags && details.topicTags.length > 0) {
+              category = details.topicTags[0].name; // e.g. Array, Hash Table
+            } else if (details.categoryTitle) {
+              category = details.categoryTitle;
+            }
+
+            await db.saveProblem({
+              title: sub.title,
+              titleSlug: sub.titleSlug,
+              difficulty: details.difficulty || 'Easy',
+              category: category,
+              link: `https://leetcode.com/problems/${sub.titleSlug}/`,
+              notes: 'Synced automatically from LeetCode profile submissions history.',
+              timeSpent: 20, // default placeholder
+              runtimeBeats: 85.0, // default placeholder
+              memoryBeats: 80.0, // default placeholder
+              solvedAt: new Date(sub.timestamp * 1000)
+            });
+            problemsSyncedCount++;
+            existingProblemTitles.add(normalizedTitle);
+          }
+        } catch (e) {
+          console.warn(`Could not sync problem details for ${sub.title}: ${e.message}`);
+        }
+      }
+    }
+
+    // 2. Fetch contest ranking history
+    console.log(`Syncing contest history for user ${username}...`);
+    const contestHistory = await leetcodeService.fetchContestHistory(username);
+    const attendedContests = contestHistory.filter(c => c.attended);
+
+    for (const record of attendedContests) {
+      const contestName = record.contest.title;
+      const normalizedContestName = contestName.toLowerCase().trim();
+      
+      if (!existingContestNames.has(normalizedContestName)) {
+        await db.saveContest({
+          name: contestName,
+          solvedCount: record.solvedCount || 0,
+          rank: record.ranking || 0,
+          rating: Math.round(record.rating) || 1500,
+          date: new Date(record.contest.startTime * 1000),
+          notes: `Synced automatically from LeetCode contest history. Global rank: #${record.ranking}.`
+        });
+        contestsSyncedCount++;
+        existingContestNames.add(normalizedContestName);
+      }
+    }
+
+    res.json({
+      success: true,
+      problemsSyncedCount,
+      contestsSyncedCount,
+      message: `Successfully synchronized ${problemsSyncedCount} problems and ${contestsSyncedCount} contest logs.`
+    });
+  } catch (err) {
+    console.error('LeetCode sync error:', err);
+    res.status(500).json({ error: `LeetCode Sync Failed: ${err.message}` });
+  }
+};
+

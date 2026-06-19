@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flame, Award, Clock, Zap, Plus, ExternalLink, HelpCircle } from 'lucide-react';
 
-export default function Dashboard({ stats, onAddProblemClick, onAddContestClick, setActiveTab }) {
+export default function Dashboard({ stats, onAddProblemClick, onAddContestClick, setActiveTab, onSyncLeetcode }) {
   const {
     totalSolved = 0,
     easyCount = 0,
@@ -293,6 +293,37 @@ export default function Dashboard({ stats, onAddProblemClick, onAddContestClick,
         {/* Action Panel */}
         <div className="card col-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
           <div>
+            {/* Sync Section */}
+            <div style={{ marginBottom: '1.25rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1.25rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                <span>Sync LeetCode Account</span>
+              </h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+                Fetch public submissions and contest histories automatically.
+              </p>
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                const username = e.target.username.value.trim();
+                if (username) {
+                  onSyncLeetcode(username);
+                  localStorage.setItem('leetcode_username', username);
+                }
+              }} style={{ display: 'flex', gap: '0.5rem' }}>
+                <input
+                  type="text"
+                  name="username"
+                  className="input-control"
+                  placeholder="Username"
+                  defaultValue={localStorage.getItem('leetcode_username') || ''}
+                  style={{ padding: '0.4rem 0.75rem', fontSize: '0.85rem' }}
+                />
+                <button type="submit" className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}>
+                  Sync
+                </button>
+              </form>
+            </div>
+
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Quick Actions</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
               Logged a new solve, or completed a LeetCode contest? Add it to your stats now.

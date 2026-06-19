@@ -15,5 +15,6 @@ router.delete('/contests/:id', controller.removeContest);
 // Stats / Analytics routes
 router.get('/dashboard/stats', controller.getDashboardStats);
 router.get('/analytics/stats', controller.getAnalyticsStats);
+router.post('/sync-leetcode', controller.syncLeetcodeAccount);
 
 module.exports = router;

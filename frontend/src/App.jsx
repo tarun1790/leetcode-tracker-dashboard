@@ -114,6 +114,27 @@ export default function App() {
     }
   };
 
+  const handleSyncLeetcode = async (username) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_BASE}/sync-leetcode`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to sync LeetCode account');
+      }
+      alert(data.message || 'LeetCode account synced successfully!');
+      await fetchAllData();
+    } catch (err) {
+      alert(`Sync Error: ${err.message}`);
+      setLoading(false);
+    }
+  };
+
   // Navigational helpers from Dashboard quick actions
   const triggerAddProblemFlow = () => {
     setDefaultOpenProblemModal(true);
@@ -131,7 +152,7 @@ export default function App() {
       return (
         <div className="flex-center" style={{ minHeight: '300px', flexDirection: 'column', gap: '1rem' }}>
           <div className="loading-spinner"></div>
-          <span style={{ color: 'var(--text-secondary)' }}>Loading dashboard metrics...</span>
+          <span style={{ color: 'var(--text-secondary)' }}>Synchronizing LeetCode metrics... (this may take a few seconds)</span>
         </div>
       );
     }
@@ -162,6 +183,7 @@ export default function App() {
             onAddProblemClick={triggerAddProblemFlow}
             onAddContestClick={triggerAddContestFlow}
             setActiveTab={setActiveTab}
+            onSyncLeetcode={handleSyncLeetcode}
           />
         );
       case 'problems':
