@@ -323,18 +323,43 @@ async function getLeetcodeProfile() {
 }
 
 async function clearMockData() {
+  const mockTitles = new Set([
+    "Two Sum",
+    "Reverse Linked List",
+    "Group Anagrams",
+    "Longest Substring Without Repeating Characters",
+    "LRU Cache",
+    "Binary Tree Level Order Traversal",
+    "Merge k Sorted Lists"
+  ]);
+  const mockContests = new Set([
+    "Weekly Contest 390",
+    "Biweekly Contest 128",
+    "Weekly Contest 391"
+  ]);
+
   if (isMongo) {
-    await ProblemModel.deleteMany({ isMock: true });
-    await ContestModel.deleteMany({ isMock: true });
+    await ProblemModel.deleteMany({
+      $or: [
+        { isMock: true },
+        { title: { $in: Array.from(mockTitles) } }
+      ]
+    });
+    await ContestModel.deleteMany({
+      $or: [
+        { isMock: true },
+        { name: { $in: Array.from(mockContests) } }
+      ]
+    });
   } else {
     if (await fs.pathExists(PROBLEMS_FILE)) {
       const pList = await fs.readJson(PROBLEMS_FILE);
-      const filteredP = pList.filter(p => !p.isMock);
+      const filteredP = pList.filter(p => !p.isMock && !mockTitles.has(p.title));
       await fs.writeJson(PROBLEMS_FILE, filteredP, { spaces: 2 });
     }
     if (await fs.pathExists(CONTESTS_FILE)) {
       const cList = await fs.readJson(CONTESTS_FILE);
-      const filteredC = cList.filter(c => !c.isMock);
+      const filteredC = cList.filter(c => !c.isMock && !mockContests.has(c.name));
       await fs.writeJson(CONTESTS_FILE, filteredC, { spaces: 2 });
     }
   }
