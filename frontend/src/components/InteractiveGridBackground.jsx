@@ -56,12 +56,9 @@ export default function InteractiveGridBackground() {
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 
         if (this.isGlowing && this.opacity > 0.04) {
-          // Glow state: solid glowing golden brown dot (hue 38)
-          // Gradients the lightness to be slightly brighter gold at the cursor center
-          const factor = (this.radius - 0.8) / 1.7;
-          const lightness = 42 + factor * 18;
-          ctx.fillStyle = `hsla(38, 78%, ${lightness}%, ${this.opacity})`;
-          ctx.shadowColor = `hsla(38, 78%, 50%, 0.4)`;
+          // Glow state: solid white glowing dot
+          ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+          ctx.shadowColor = `rgba(255, 255, 255, 0.45)`;
           ctx.shadowBlur = 3;
           ctx.fill();
         } else {
