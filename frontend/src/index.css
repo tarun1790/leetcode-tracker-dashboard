@@ -194,6 +194,7 @@ body {
 
 /* Glass Cards */
 .card {
+  position: relative;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 1.25rem;
@@ -201,22 +202,68 @@ body {
   backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* Ensure card contents stay on top of the background hover glow */
+.card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(99, 102, 241, 0.12),
+    transparent 80%
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card:hover {
   border-color: var(--card-hover-border);
   box-shadow: 
     0 20px 40px -15px rgba(0, 0, 0, 0.7),
-    0 0 25px 0 rgba(99, 102, 241, 0.2);
+    0 0 25px 0 rgba(99, 102, 241, 0.25);
   transform: translateY(-4px) scale(1.005);
 }
 
 /* Card Glows based on Difficulty Tiers */
+.card-easy::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(16, 185, 129, 0.15),
+    transparent 80%
+  );
+}
+
 .card-easy:hover {
   border-color: rgba(16, 185, 129, 0.4);
   box-shadow: 
     0 20px 40px -15px rgba(0, 0, 0, 0.7),
     0 0 25px 0 rgba(16, 185, 129, 0.15);
+}
+
+.card-medium::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(245, 158, 11, 0.15),
+    transparent 80%
+  );
 }
 
 .card-medium:hover {
@@ -226,11 +273,27 @@ body {
     0 0 25px 0 rgba(245, 158, 11, 0.15);
 }
 
+.card-hard::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(239, 68, 68, 0.15),
+    transparent 80%
+  );
+}
+
 .card-hard:hover {
   border-color: rgba(239, 68, 68, 0.4);
   box-shadow: 
     0 20px 40px -15px rgba(0, 0, 0, 0.7),
     0 0 25px 0 rgba(239, 68, 68, 0.15);
+}
+
+.card-streak::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(255, 90, 31, 0.2),
+    transparent 80%
+  );
 }
 
 .card-streak:hover {

@@ -23,6 +23,16 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
   const mediumProblems = problems.filter(p => p.difficulty === 'Medium');
   const hardProblems = problems.filter(p => p.difficulty === 'Hard');
 
+  // Mouse move handler to set cursor positions for modern tracking glow
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   // Generate 53 weeks * 7 days of heatmap squares ending today
   const getHeatmapDays = () => {
     const days = [];
@@ -80,7 +90,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
           {/* Quick Stats Grid */}
           <div className="stats-grid" style={{ margin: 0 }}>
             {/* Total Solved */}
-            <div className="card stat-card card-easy">
+            <div className="card stat-card card-easy" onMouseMove={handleMouseMove}>
               <div className="stat-icon" style={{ background: 'rgba(99, 102, 241, 0.1)', color: 'var(--color-primary)' }}>
                 <Award size={20} />
               </div>
@@ -91,7 +101,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
             </div>
 
             {/* Average Beats */}
-            <div className="card stat-card card-easy">
+            <div className="card stat-card card-easy" onMouseMove={handleMouseMove}>
               <div className="stat-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-easy)' }}>
                 <Zap size={20} />
               </div>
@@ -102,7 +112,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
             </div>
 
             {/* Avg Time */}
-            <div className="card stat-card card-medium">
+            <div className="card stat-card card-medium" onMouseMove={handleMouseMove}>
               <div className="stat-icon" style={{ background: 'rgba(245, 158, 11, 0.1)', color: 'var(--color-medium)' }}>
                 <Clock size={20} />
               </div>
@@ -113,7 +123,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
             </div>
 
             {/* Contest Rating */}
-            <div className="card stat-card card-hard">
+            <div className="card stat-card card-hard" onMouseMove={handleMouseMove}>
               <div className="stat-icon" style={{ background: 'rgba(168, 85, 247, 0.1)', color: 'var(--color-secondary)' }}>
                 <TrophyIcon size={20} />
               </div>
@@ -125,7 +135,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
           </div>
 
           {/* Difficulty Progress Overview Card */}
-          <div className="card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="card" onMouseMove={handleMouseMove} style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.75rem', letterSpacing: '0.3px' }}>
               DIFFICULTY DISTRIBUTION
             </h4>
@@ -154,7 +164,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
           </div>
 
           {/* Contribution Calendar Heatmap */}
-          <div className="card" style={{ padding: '1.5rem' }}>
+          <div className="card" onMouseMove={handleMouseMove} style={{ padding: '1.5rem' }}>
             <div className="heatmap-container">
               <div className="heatmap-header">
                 <div>
@@ -197,7 +207,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
             <div className="solved-columns-container">
               
               {/* Easy Column */}
-              <div className="solved-column card-easy">
+              <div className="solved-column card-easy" onMouseMove={handleMouseMove}>
                 <div className="solved-column-header easy">
                   <span>🟢 Easy Solves</span>
                   <span style={{ fontSize: '0.8rem', background: 'rgba(16, 185, 129, 0.15)', padding: '0.1rem 0.5rem', borderRadius: '20px', fontWeight: 700 }}>
@@ -211,7 +221,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
                     </div>
                   ) : (
                     easyProblems.map(p => (
-                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card easy" key={p._id || p.id}>
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card easy" key={p._id || p.id} onMouseMove={handleMouseMove}>
                         <div className="solved-problem-title-row">
                           <span className="solved-problem-title" title={p.title}>{p.title}</span>
                           <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
@@ -231,7 +241,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
               </div>
 
               {/* Medium Column */}
-              <div className="solved-column card-medium">
+              <div className="solved-column card-medium" onMouseMove={handleMouseMove}>
                 <div className="solved-column-header medium">
                   <span>🟡 Medium Solves</span>
                   <span style={{ fontSize: '0.8rem', background: 'rgba(245, 158, 11, 0.15)', padding: '0.1rem 0.5rem', borderRadius: '20px', fontWeight: 700 }}>
@@ -245,7 +255,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
                     </div>
                   ) : (
                     mediumProblems.map(p => (
-                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card medium" key={p._id || p.id}>
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card medium" key={p._id || p.id} onMouseMove={handleMouseMove}>
                         <div className="solved-problem-title-row">
                           <span className="solved-problem-title" title={p.title}>{p.title}</span>
                           <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
@@ -265,7 +275,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
               </div>
 
               {/* Hard Column */}
-              <div className="solved-column card-hard">
+              <div className="solved-column card-hard" onMouseMove={handleMouseMove}>
                 <div className="solved-column-header hard">
                   <span>🔴 Hard Solves</span>
                   <span style={{ fontSize: '0.8rem', background: 'rgba(239, 68, 68, 0.15)', padding: '0.1rem 0.5rem', borderRadius: '20px', fontWeight: 700 }}>
@@ -279,7 +289,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
                     </div>
                   ) : (
                     hardProblems.map(p => (
-                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card hard" key={p._id || p.id}>
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="solved-problem-card hard" key={p._id || p.id} onMouseMove={handleMouseMove}>
                         <div className="solved-problem-title-row">
                           <span className="solved-problem-title" title={p.title}>{p.title}</span>
                           <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
@@ -307,7 +317,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
         <div className="col-4" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           {/* Streak Card */}
-          <div className="card streak-card card-streak" style={{ width: '100%' }}>
+          <div className="card streak-card card-streak" onMouseMove={handleMouseMove} style={{ width: '100%' }}>
             <div className="flex-between" style={{ marginBottom: '1rem' }}>
               <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Daily Streak</span>
               <div className="stat-icon">
@@ -340,7 +350,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
           </div>
 
           {/* Actions & Profile Sync Panel */}
-          <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
+          <div className="card" onMouseMove={handleMouseMove} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
             
             {/* Synced Profile Information */}
             {leetcodeProfile && (
@@ -418,7 +428,7 @@ export default function Dashboard({ stats, problems = [], onAddProblemClick, onA
           </div>
 
           {/* Goal Tracker Info Box */}
-          <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.25rem', borderRadius: '1.25rem', border: '1px solid var(--card-border)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+          <div onMouseMove={handleMouseMove} style={{ background: 'rgba(255,255,255,0.02)', padding: '1.25rem', borderRadius: '1.25rem', border: '1px solid var(--card-border)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
             <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '0.25rem' }}>🎯 Weekly Target</strong>
             Log at least 5 solves per week. Go to the <span style={{ color: 'var(--color-primary)', fontWeight: 600, cursor: 'pointer' }} onClick={() => setActiveTab('analytics')}>Analytics</span> tab to see progress.
           </div>
