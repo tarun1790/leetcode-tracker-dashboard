@@ -61,14 +61,11 @@ export default function InteractiveGridBackground() {
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 
         if (this.isGlowing && this.opacity > 0.07) {
-          // Glow state: bubble with colorful stroke and faint transparent fill
-          ctx.strokeStyle = `hsla(${this.hue}, 85%, 65%, ${this.opacity})`;
-          ctx.fillStyle = `hsla(${this.hue}, 85%, 65%, ${this.opacity * 0.15})`;
-          ctx.lineWidth = 1.5;
-          ctx.shadowColor = `hsla(${this.hue}, 85%, 65%, 0.4)`;
-          ctx.shadowBlur = 3;
+          // Glow state: solid glowing HSL color dot with shadow
+          ctx.fillStyle = `hsla(${this.hue}, 85%, 60%, ${this.opacity})`;
+          ctx.shadowColor = `hsla(${this.hue}, 85%, 60%, 0.5)`;
+          ctx.shadowBlur = 5;
           ctx.fill();
-          ctx.stroke();
         } else {
           // Inactive state: tiny solid grey dot
           ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
