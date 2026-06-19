@@ -352,7 +352,7 @@ exports.syncLeetcodeAccount = async (req, res) => {
       if (!existingContestNames.has(normalizedContestName)) {
         await db.saveContest({
           name: contestName,
-          solvedCount: record.solvedCount || 0,
+          solvedCount: record.problemsSolved || 0,
           rank: record.ranking || 0,
           rating: Math.round(record.rating) || 1500,
           date: new Date(record.contest.startTime * 1000),

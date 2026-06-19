@@ -66,7 +66,7 @@ async function fetchContestHistory(username) {
         attended
         rating
         ranking
-        solvedCount
+        problemsSolved
         totalProblems
         contest {
           title
