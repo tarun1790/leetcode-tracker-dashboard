@@ -15,15 +15,14 @@ export default function InteractiveGridBackground() {
 
     // Spacing between grid points
     const spacing = 32;
-    const maxDistance = 250; // Radius of interaction
+    const maxDistance = 200; // Radius of interaction (slightly tighter)
 
     class Bubble {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.radius = 1.5; // Base radius (looks like a small dot)
-        this.opacity = 0.06;
-        this.hue = 0;
+        this.radius = 1.0; // Smaller base radius
+        this.opacity = 0.04; // Slightly fainter default opacity
         this.isGlowing = false;
       }
 
@@ -32,26 +31,22 @@ export default function InteractiveGridBackground() {
         const dy = this.y - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        let targetRadius = 1.5; // Faint tiny dot
-        let targetOpacity = 0.06;
-        let targetHue = 0;
+        let targetRadius = 1.0;
+        let targetOpacity = 0.04;
         let glowing = false;
 
         if (active && dist < maxDistance) {
-          const factor = 1 - dist / maxDistance; // 1 at cursor, 0 at boundary
-          // Radius expands up to 9px (looks like a bubble)
-          targetRadius = 1.5 + factor * 7.5;
-          // Opacity goes up to 0.55
-          targetOpacity = 0.06 + factor * 0.5;
-          // Radial hue sweep centered at the cursor
-          targetHue = Math.floor((Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360);
+          const factor = 1 - dist / maxDistance;
+          // Radius expands up to 4.5px (much smaller and more elegant)
+          targetRadius = 1.0 + factor * 3.5;
+          // Opacity goes up to 0.50
+          targetOpacity = 0.04 + factor * 0.46;
           glowing = true;
         }
 
         // Smoothly interpolate radius and opacity
         this.radius += (targetRadius - this.radius) * 0.1;
         this.opacity += (targetOpacity - this.opacity) * 0.1;
-        this.hue = targetHue;
         this.isGlowing = glowing;
       }
 
@@ -60,11 +55,14 @@ export default function InteractiveGridBackground() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 
-        if (this.isGlowing && this.opacity > 0.07) {
-          // Glow state: solid glowing HSL color dot with shadow
-          ctx.fillStyle = `hsla(${this.hue}, 85%, 60%, ${this.opacity})`;
-          ctx.shadowColor = `hsla(${this.hue}, 85%, 60%, 0.5)`;
-          ctx.shadowBlur = 5;
+        if (this.isGlowing && this.opacity > 0.05) {
+          // Glow state: solid glowing golden brown dot (hue 38)
+          // Gradients the lightness to be slightly brighter gold at the cursor center
+          const factor = (this.radius - 1.0) / 3.5;
+          const lightness = 42 + factor * 18;
+          ctx.fillStyle = `hsla(38, 78%, ${lightness}%, ${this.opacity})`;
+          ctx.shadowColor = `hsla(38, 78%, 50%, 0.4)`;
+          ctx.shadowBlur = 4;
           ctx.fill();
         } else {
           // Inactive state: tiny solid grey dot
