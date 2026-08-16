@@ -1,13 +1,15 @@
 import React from 'react';
-import { BarChart3, LayoutDashboard, CheckSquare, Trophy, Database } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Trophy, BarChart3, Database, Sparkles } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, dbType }) {
   return (
     <nav className="navbar">
       <div className="nav-brand" onClick={() => setActiveTab('dashboard')}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-        </svg>
+        <div className="nav-logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
         <span>LeetCode Tracker</span>
       </div>
 
@@ -42,13 +44,15 @@ export default function Navbar({ activeTab, setActiveTab, dbType }) {
         </button>
       </div>
 
-      {dbType && (
-        <div className={`db-status ${dbType === 'Local JSON' ? 'local' : ''}`}>
-          <Database size={14} />
-          <span>{dbType}</span>
-          <span className="db-dot"></span>
-        </div>
-      )}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+        {dbType && (
+          <div className={`db-status ${dbType === 'Local JSON' ? 'local' : ''}`}>
+            <Database size={14} />
+            <span>{dbType}</span>
+            <span className="db-dot"></span>
+          </div>
+        )}
+      </div>
     </nav>
   );
 }

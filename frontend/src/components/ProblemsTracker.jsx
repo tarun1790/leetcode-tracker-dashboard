@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Search, Plus, Edit2, Trash2, ExternalLink, ChevronDown, ChevronUp, Code, MessageSquare, Clock, Zap } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, ExternalLink, ChevronDown, ChevronUp, Code2, Copy, Check, Clock, Zap, BookOpen, Layers } from 'lucide-react';
 
-export default function ProblemsTracker({ problems, onSaveProblem, onDeleteProblem, defaultOpenAddModal, onDefaultOpenModalHandled }) {
+export default function ProblemsTracker({ problems = [], onSaveProblem, onDeleteProblem, defaultOpenAddModal, onDefaultOpenModalHandled }) {
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
   const [expandedRow, setExpandedRow] = useState(null);
+  const [copiedCodeId, setCopiedCodeId] = useState(null);
   
   // Modal State
   const [showModal, setShowModal] = useState(false);
@@ -47,7 +48,7 @@ export default function ProblemsTracker({ problems, onSaveProblem, onDeleteProbl
   }, [defaultOpenAddModal]);
 
   const handleOpenEditModal = (e, prob) => {
-    e.stopPropagation(); // Prevent expanding the row when clicking edit
+    e.stopPropagation();
     setEditingProblem(prob);
     setFormState({
       title: prob.title || '',
@@ -65,10 +66,17 @@ export default function ProblemsTracker({ problems, onSaveProblem, onDeleteProbl
   };
 
   const handleDelete = (e, id) => {
-    e.stopPropagation(); // Prevent expanding row
-    if (window.confirm('Are you sure you want to delete this problem?')) {
+    e.stopPropagation();
+    if (window.confirm('Are you sure you want to delete this problem log?')) {
       onDeleteProblem(id);
     }
+  };
+
+  const handleCopyCode = (e, id, code) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(code);
+    setCopiedCodeId(id);
+    setTimeout(() => setCopiedCodeId(null), 2000);
   };
 
   const handleFormSubmit = (e) => {
@@ -99,154 +107,154 @@ export default function ProblemsTracker({ problems, onSaveProblem, onDeleteProbl
     setExpandedRow(expandedRow === id ? null : id);
   };
 
-  // Filtering and Searching
+  // Filter & Search
   const filteredProblems = problems.filter(p => {
     const matchesFilter = activeFilter === 'All' || p.difficulty === activeFilter;
     const matchesSearch = 
-      p.title.toLowerCase().includes(search.toLowerCase()) ||
-      p.category.toLowerCase().includes(search.toLowerCase()) ||
+      (p.title || '').toLowerCase().includes(search.toLowerCase()) ||
+      (p.category || '').toLowerCase().includes(search.toLowerCase()) ||
       (p.notes && p.notes.toLowerCase().includes(search.toLowerCase()));
     return matchesFilter && matchesSearch;
   });
 
   return (
     <div className="problems-container">
-      {/* Page Header */}
+      {/* 1. Page Header */}
       <div className="section-header">
         <div>
-          <h2 className="section-title">Solved Problems</h2>
-          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-            Log and review your solved LeetCode challenges
+          <h2 className="section-title">Solved Problems Ledger</h2>
+          <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+            Comprehensive catalog of algorithms, solution blueprints, and performance benchmarks
           </p>
         </div>
-        <button className="btn btn-primary" onClick={handleOpenAddModal}>
-          <Plus size={16} />
-          <span>Add Problem</span>
+        <button className="btn btn-primary btn-lg" onClick={handleOpenAddModal}>
+          <Plus size={18} />
+          <span>Log Problem</span>
         </button>
       </div>
 
-      {/* Filter and Search Controls */}
-      <div className="flex-between" style={{ gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-        <div className="filter-tabs">
-          {['All', 'Easy', 'Medium', 'Hard'].map(filter => (
-            <button
-              key={filter}
-              className={`filter-tab ${activeFilter === filter ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </button>
-          ))}
+      {/* 2. Filter & Search Bar */}
+      <div className="filter-bar-grand">
+        <div className="filter-pills-group">
+          {['All', 'Easy', 'Medium', 'Hard'].map(filter => {
+            const count = filter === 'All' ? problems.length : problems.filter(p => p.difficulty === filter).length;
+            return (
+              <button
+                key={filter}
+                className={`filter-pill ${activeFilter === filter ? 'active' : ''}`}
+                onClick={() => setActiveFilter(filter)}
+              >
+                <span>{filter}</span>
+                <span style={{ marginLeft: '0.4rem', opacity: 0.7, fontSize: '0.8rem' }}>({count})</span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="search-wrapper">
-          <Search size={16} className="search-icon" />
+        <div className="search-box-grand">
+          <Search size={18} className="search-box-icon" />
           <input
             type="text"
-            className="search-input"
-            placeholder="Search title, tags, notes..."
+            placeholder="Search by problem title, algorithmic tag, or notes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Main Problems Table */}
+      {/* 3. Grand Table Ledger */}
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
         {filteredProblems.length === 0 ? (
-          <div className="empty-state">
-            <Search size={40} />
-            <p>No solved problems match your criteria.</p>
+          <div style={{ textAlign: 'center', padding: '4rem 2rem', color: 'var(--text-muted)' }}>
+            <Search size={44} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
+            <h3 style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '0.5rem' }}>No Problems Found</h3>
+            <p style={{ fontSize: '0.9rem' }}>No logged problems match your current search and filter criteria.</p>
           </div>
         ) : (
-          <div className="table-container">
-            <table className="tracker-table">
+          <div style={{ overflowX: 'auto' }}>
+            <table className="grand-table">
               <thead>
                 <tr>
                   <th style={{ width: '40px' }}></th>
-                  <th>Problem</th>
+                  <th>Problem Title</th>
                   <th>Difficulty</th>
                   <th>Category</th>
                   <th>Time Spent</th>
-                  <th>Beats %</th>
+                  <th>Runtime Beats</th>
+                  <th>Date Solved</th>
                   <th style={{ textAlign: 'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredProblems.map((prob) => {
-                  const probId = prob._id || prob.id;
-                  const isExpanded = expandedRow === probId;
-                  
+                  const id = prob._id || prob.id;
+                  const isExpanded = expandedRow === id;
                   return (
-                    <React.Fragment key={probId}>
+                    <React.Fragment key={id}>
                       <tr 
-                        className="table-row-expandable" 
-                        onClick={() => toggleRow(probId)}
-                        style={{ borderBottom: isExpanded ? 'none' : '1px solid var(--card-border)' }}
+                        className="table-row-hover" 
+                        onClick={() => toggleRow(id)}
+                        style={{ background: isExpanded ? 'rgba(99, 102, 241, 0.08)' : undefined }}
                       >
                         <td>
-                          {isExpanded ? <ChevronUp size={16} className="text-muted" /> : <ChevronDown size={16} className="text-muted" />}
+                          {isExpanded ? (
+                            <ChevronUp size={18} style={{ color: 'var(--color-primary)' }} />
+                          ) : (
+                            <ChevronDown size={18} style={{ color: 'var(--text-muted)' }} />
+                          )}
                         </td>
                         <td>
-                          <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            {prob.link ? (
+                          <div className="table-title-cell">
+                            <span style={{ fontWeight: 700, color: '#ffffff' }}>{prob.title}</span>
+                            {prob.link && (
                               <a 
                                 href={prob.link} 
                                 target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="text-link"
-                                onClick={(e) => e.stopPropagation()} // Stop row toggle when clicking link
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                style={{ color: 'var(--text-muted)', display: 'inline-flex' }}
+                                title="Open in LeetCode"
                               >
-                                {prob.title}
-                                <ExternalLink size={12} />
+                                <ExternalLink size={14} />
                               </a>
-                            ) : (
-                              <strong style={{ color: 'var(--text-primary)' }}>{prob.title}</strong>
                             )}
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
-                              Solved {new Date(prob.solvedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                            </span>
                           </div>
                         </td>
                         <td>
-                          <span className={`badge badge-${prob.difficulty.toLowerCase()}`}>
+                          <span className={`badge-difficulty ${prob.difficulty.toLowerCase()}`}>
                             {prob.difficulty}
                           </span>
                         </td>
                         <td>
-                          <span style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--card-border)', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                            {prob.category}
-                          </span>
+                          <span className="tag-category">{prob.category}</span>
                         </td>
-                        <td>
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', color: 'var(--text-secondary)' }}>
-                            <Clock size={14} className="text-muted" />
-                            {prob.timeSpent ? `${prob.timeSpent} mins` : '-'}
-                          </span>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>
+                          {prob.timeSpent ? `${prob.timeSpent} min` : '—'}
                         </td>
-                        <td>
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', color: 'var(--color-easy)', fontWeight: 600 }}>
-                            {prob.runtimeBeats ? (
-                              <>
-                                <Zap size={14} />
-                                {prob.runtimeBeats}%
-                              </>
-                            ) : '-'}
-                          </span>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>
+                          {prob.runtimeBeats ? (
+                            <span style={{ color: prob.runtimeBeats >= 80 ? 'var(--color-easy)' : '#fff', fontWeight: 600 }}>
+                              {prob.runtimeBeats}%
+                            </span>
+                          ) : '—'}
+                        </td>
+                        <td style={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
+                          {prob.solvedAt ? new Date(prob.solvedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—'}
                         </td>
                         <td style={{ textAlign: 'right' }}>
-                          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                          <div style={{ display: 'inline-flex', gap: '0.5rem' }} onClick={(e) => e.stopPropagation()}>
                             <button 
-                              className="btn btn-icon" 
+                              className="btn btn-secondary btn-sm"
                               onClick={(e) => handleOpenEditModal(e, prob)}
                               title="Edit Problem"
                             >
                               <Edit2 size={14} />
                             </button>
                             <button 
-                              className="btn btn-icon btn-danger" 
-                              onClick={(e) => handleDelete(e, probId)}
+                              className="btn btn-secondary btn-sm"
+                              onClick={(e) => handleDelete(e, id)}
                               title="Delete Problem"
+                              style={{ color: 'var(--color-hard)' }}
                             >
                               <Trash2 size={14} />
                             </button>
@@ -254,48 +262,42 @@ export default function ProblemsTracker({ problems, onSaveProblem, onDeleteProbl
                         </td>
                       </tr>
 
-                      {/* Expanded Notes and Code section */}
+                      {/* Expandable Solution & Notes Drawer */}
                       {isExpanded && (
                         <tr>
-                          <td colSpan="7" style={{ padding: 0 }}>
-                            <div className="expanded-row-content">
-                              <div className="expanded-grid">
+                          <td colSpan={8} style={{ padding: 0 }}>
+                            <div className="expanded-drawer">
+                              <div className="drawer-grid">
                                 <div>
-                                  <h4 className="expanded-title flex-center" style={{ justifyContent: 'flex-start', gap: '0.4rem' }}>
-                                    <MessageSquare size={14} />
-                                    <span>Solving Notes</span>
+                                  <h4 style={{ fontSize: '0.9rem', color: '#fff', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                    <BookOpen size={16} style={{ color: 'var(--color-primary)' }} />
+                                    <span>Algorithmic Notes & Approach</span>
                                   </h4>
-                                  <div className="expanded-notes">
-                                    {prob.notes ? prob.notes : <span className="text-muted" style={{ fontStyle: 'italic' }}>No notes provided for this problem.</span>}
-                                  </div>
-                                  
-                                  {/* Beats details */}
-                                  <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1.25rem' }}>
-                                    <div>
-                                      <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)' }}>RUNTIME BEATS</span>
-                                      <strong style={{ fontSize: '1rem', color: 'var(--color-easy)' }}>{prob.runtimeBeats ? `${prob.runtimeBeats}%` : '-'}</strong>
-                                    </div>
-                                    <div>
-                                      <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)' }}>MEMORY BEATS</span>
-                                      <strong style={{ fontSize: '1rem', color: 'var(--color-primary)' }}>{prob.memoryBeats ? `${prob.memoryBeats}%` : '-'}</strong>
-                                    </div>
+                                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '10px', fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6, border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                                    {prob.notes ? prob.notes : <em>No written notes provided for this challenge.</em>}
                                   </div>
                                 </div>
-                                
+
                                 <div>
-                                  <h4 className="expanded-title flex-center" style={{ justifyContent: 'flex-start', gap: '0.4rem' }}>
-                                    <Code size={14} />
-                                    <span>Code Solution</span>
-                                  </h4>
-                                  {prob.codeSnippet ? (
-                                    <pre className="code-block">
-                                      <code>{prob.codeSnippet}</code>
-                                    </pre>
-                                  ) : (
-                                    <div className="expanded-notes text-muted" style={{ fontStyle: 'italic', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100px' }}>
-                                      No code snippet uploaded.
-                                    </div>
-                                  )}
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                    <h4 style={{ fontSize: '0.9rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                      <Code2 size={16} style={{ color: 'var(--color-cyan)' }} />
+                                      <span>Code Implementation</span>
+                                    </h4>
+                                    {prob.codeSnippet && (
+                                      <button 
+                                        className="btn btn-secondary btn-sm"
+                                        onClick={(e) => handleCopyCode(e, id, prob.codeSnippet)}
+                                        style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}
+                                      >
+                                        {copiedCodeId === id ? <Check size={12} style={{ color: 'var(--color-easy)' }} /> : <Copy size={12} />}
+                                        <span>{copiedCodeId === id ? 'Copied!' : 'Copy Code'}</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                  <pre className="drawer-code-block">
+                                    <code>{prob.codeSnippet ? prob.codeSnippet : '// No code snippet attached.'}</code>
+                                  </pre>
                                 </div>
                               </div>
                             </div>
@@ -311,154 +313,142 @@ export default function ProblemsTracker({ problems, onSaveProblem, onDeleteProbl
         )}
       </div>
 
-      {/* Add / Edit Modal Overlay */}
+      {/* 4. Grand Add / Edit Modal */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3 className="modal-title">{editingProblem ? 'Edit Solved Problem' : 'Log Solved Problem'}</h3>
-              <button className="btn btn-icon" onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none' }}>
-                ✕
+          <div className="modal-content-grand" onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem' }}>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800 }}>
+                {editingProblem ? 'Edit Problem Entry' : 'Log New Solved Problem'}
+              </h3>
+              <button 
+                onClick={() => setShowModal(false)}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.5rem', cursor: 'pointer' }}
+              >
+                &times;
               </button>
             </div>
-            
+
             <form onSubmit={handleFormSubmit}>
-              <div className="modal-body">
-                {/* Title */}
-                <div className="form-group">
-                  <label className="form-label">Problem Title *</label>
+              <div className="form-group-grand">
+                <label className="form-label-grand">Problem Title *</label>
+                <input
+                  type="text"
+                  className="form-input-grand"
+                  placeholder="e.g. Longest Palindromic Substring"
+                  value={formState.title}
+                  onChange={(e) => setFormState({ ...formState, title: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                <div>
+                  <label className="form-label-grand">Difficulty Tier *</label>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
+                    {['Easy', 'Medium', 'Hard'].map((diff) => (
+                      <button
+                        type="button"
+                        key={diff}
+                        className={`btn btn-sm ${formState.difficulty === diff ? `badge-difficulty ${diff.toLowerCase()}` : 'btn-secondary'}`}
+                        onClick={() => setFormState({ ...formState, difficulty: diff })}
+                        style={{ height: '42px', fontWeight: 700 }}
+                      >
+                        {diff}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="form-label-grand">Algorithmic Category *</label>
                   <input
                     type="text"
+                    className="form-input-grand"
+                    placeholder="e.g. Dynamic Programming, Trees"
+                    value={formState.category}
+                    onChange={(e) => setFormState({ ...formState, category: e.target.value })}
                     required
-                    className="input-control"
-                    placeholder="e.g. Two Sum"
-                    value={formState.title}
-                    onChange={(e) => setFormState({ ...formState, title: e.target.value })}
-                  />
-                </div>
-
-                {/* Link */}
-                <div className="form-group">
-                  <label className="form-label">LeetCode Link</label>
-                  <input
-                    type="url"
-                    className="input-control"
-                    placeholder="e.g. https://leetcode.com/problems/two-sum/"
-                    value={formState.link}
-                    onChange={(e) => setFormState({ ...formState, link: e.target.value })}
-                  />
-                </div>
-
-                {/* Row: Difficulty and Category */}
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Difficulty</label>
-                    <select
-                      className="select-control"
-                      value={formState.difficulty}
-                      onChange={(e) => setFormState({ ...formState, difficulty: e.target.value })}
-                    >
-                      <option value="Easy">Easy</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Hard">Hard</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Category *</label>
-                    <input
-                      type="text"
-                      required
-                      className="input-control"
-                      placeholder="e.g. Arrays, Trees, Dynamic Programming"
-                      value={formState.category}
-                      onChange={(e) => setFormState({ ...formState, category: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                {/* Row: Stats */}
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Time Spent (minutes)</label>
-                    <input
-                      type="number"
-                      min="0"
-                      className="input-control"
-                      placeholder="e.g. 25"
-                      value={formState.timeSpent}
-                      onChange={(e) => setFormState({ ...formState, timeSpent: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Date Solved</label>
-                    <input
-                      type="date"
-                      className="input-control"
-                      value={formState.solvedAt}
-                      onChange={(e) => setFormState({ ...formState, solvedAt: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                {/* Row: Beats */}
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Runtime Beats (%)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max="100"
-                      className="input-control"
-                      placeholder="e.g. 94.2"
-                      value={formState.runtimeBeats}
-                      onChange={(e) => setFormState({ ...formState, runtimeBeats: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Memory Beats (%)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max="100"
-                      className="input-control"
-                      placeholder="e.g. 88.5"
-                      value={formState.memoryBeats}
-                      onChange={(e) => setFormState({ ...formState, memoryBeats: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                {/* Notes */}
-                <div className="form-group">
-                  <label className="form-label">Solving Notes</label>
-                  <textarea
-                    className="textarea-control"
-                    placeholder="Describe your approach, complexity analysis O(N), or edge cases..."
-                    value={formState.notes}
-                    onChange={(e) => setFormState({ ...formState, notes: e.target.value })}
-                  />
-                </div>
-
-                {/* Code Snippet */}
-                <div className="form-group" style={{ margin: 0 }}>
-                  <label className="form-label">Code Solution</label>
-                  <textarea
-                    className="textarea-control code"
-                    placeholder="function solve() { ... }"
-                    value={formState.codeSnippet}
-                    onChange={(e) => setFormState({ ...formState, codeSnippet: e.target.value })}
                   />
                 </div>
               </div>
-              
-              <div className="form-actions">
-                <button type="button" className="btn" onClick={() => setShowModal(false)}>
+
+              <div className="form-group-grand">
+                <label className="form-label-grand">LeetCode URL</label>
+                <input
+                  type="url"
+                  className="form-input-grand"
+                  placeholder="https://leetcode.com/problems/..."
+                  value={formState.link}
+                  onChange={(e) => setFormState({ ...formState, link: e.target.value })}
+                />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                <div>
+                  <label className="form-label-grand">Time (Min)</label>
+                  <input
+                    type="number"
+                    className="form-input-grand"
+                    placeholder="e.g. 25"
+                    value={formState.timeSpent}
+                    onChange={(e) => setFormState({ ...formState, timeSpent: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="form-label-grand">Runtime Beats (%)</label>
+                  <input
+                    type="number"
+                    className="form-input-grand"
+                    placeholder="e.g. 92.5"
+                    value={formState.runtimeBeats}
+                    onChange={(e) => setFormState({ ...formState, runtimeBeats: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="form-label-grand">Date Solved</label>
+                  <input
+                    type="date"
+                    className="form-input-grand"
+                    value={formState.solvedAt}
+                    onChange={(e) => setFormState({ ...formState, solvedAt: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group-grand">
+                <label className="form-label-grand">Notes / Conceptual Takeaway</label>
+                <textarea
+                  className="form-input-grand"
+                  rows={3}
+                  placeholder="Summarize your key logic, edge cases, and time/space complexity..."
+                  value={formState.notes}
+                  onChange={(e) => setFormState({ ...formState, notes: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group-grand">
+                <label className="form-label-grand">Solution Code Snippet</label>
+                <textarea
+                  className="form-input-grand"
+                  rows={5}
+                  style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}
+                  placeholder="Paste your clean solution code here..."
+                  value={formState.codeSnippet}
+                  onChange={(e) => setFormState({ ...formState, codeSnippet: e.target.value })}
+                />
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1.75rem' }}>
+                <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  onClick={() => setShowModal(false)}
+                >
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  {editingProblem ? 'Save Changes' : 'Log Problem'}
+                  {editingProblem ? 'Save Changes' : 'Create Problem Log'}
                 </button>
               </div>
             </form>
